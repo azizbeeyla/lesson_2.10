@@ -7,8 +7,8 @@ class CategoriesCard extends StatefulWidget {
   String image;
   String textname;
   String textdetail;
-  String textminute;
-  String textstar;
+  num textminute;
+  num textstar;
 
 
   CategoriesCard({
@@ -83,7 +83,7 @@ class _CategoriesCardState extends State<CategoriesCard> {
                         child: Row(
                           children: [
                             Text(
-                              widget.textstar,
+                              "${widget.textstar}",
                               style: TextStyle(
                                 color: AppColors.pink,
                                 fontSize: 12,
@@ -99,7 +99,7 @@ class _CategoriesCardState extends State<CategoriesCard> {
                               width: 6,
                             ),
                             Text(
-                              widget.textminute,
+                              "${widget.textminute} min",
                               style: TextStyle(
                                 color: AppColors.pink,
                                 fontSize: 12,
@@ -119,7 +119,7 @@ class _CategoriesCardState extends State<CategoriesCard> {
             alignment: Alignment.topCenter,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(14),
-              child: Image.asset(
+              child: Image.network(
                 widget.image,
                 fit: BoxFit.cover,
                 width: 168,

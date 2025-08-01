@@ -2,11 +2,10 @@ import 'package:lesson2_10/utils/app_colors.dart';
 import 'package:lesson2_10/features/widgets/appbarcus_toms.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'package:lesson2_10/features/widgets/Appbarcustom.dart';
 import 'package:lesson2_10/main.dart';
 import 'package:lesson2_10/features/widgets/recipeItem.dart';
 
-import 'homepage.dart';
+import '../../CategoryItem.dart';
 
 final dio = Dio(
   BaseOptions(
@@ -16,7 +15,7 @@ final dio = Dio(
 );
 
 Future<List> fetchCategories() async {
-  var response = await dio.get("/categories/list");
+  var response = await dio.get("/admin/categories/list");
   if (response.statusCode != 200) {
     throw Exception(response.data);
   }
@@ -24,11 +23,7 @@ Future<List> fetchCategories() async {
 }
 
 class Categorysourse extends StatelessWidget {
-  final int id;
-
-  final String title;
-
-  const Categorysourse({super.key, required this.id, required this.title});
+  Categorysourse();
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +33,11 @@ class Categorysourse extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Scaffold(body: Center(child: CircularProgressIndicator()));
         } else if (snapshot.hasError) {
-          return Scaffold(body: Center(
-              child: Text("Something went wrong: ${snapshot.error}")));
+          return Scaffold(
+            body: Center(
+              child: Text("Something went wrong: ${snapshot.error}"),
+            ),
+          );
         } else if (snapshot.hasData) {
           return Scaffold(
             backgroundColor: AppColors.baige,
@@ -54,46 +52,22 @@ class Categorysourse extends StatelessWidget {
 
             body: GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisExtent: 171,
-                  mainAxisSpacing: 20
+                crossAxisCount: 2,
+                mainAxisExtent: 171,
+                mainAxisSpacing: 20,
               ),
               itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) =>
-                  Column(
-
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadiusGeometry.circular(13),
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator
-                                .of(context)
-                                .push(MaterialPageRoute(builder: (context) =>
-                                CategoryDetailPage(
-                                    categoryId: id, title: title)));
-                            },
-                          child: Image.network(
-                            snapshot.data![index]["image"],
-                            width: 159,
-                            height: 145,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      Text(
-                          style: TextStyle(color: Colors.white),
-
-                          snapshot.data![index]["title"]),
-                    ],
-                  ),
+              itemBuilder: (context, index) => CategoryItem(
+                id: snapshot.data![index]['id'],
+                title: snapshot.data![index]['title'],
+                image: snapshot.data![index]['image'],
+              ),
             ),
-
           );
         } else {
           return Scaffold(
-              body: Center(child: Text(
-                  "Something went wrong... Again...")));
+            body: Center(child: Text("Something went wrong... Again...")),
+          );
         }
       },
     );
