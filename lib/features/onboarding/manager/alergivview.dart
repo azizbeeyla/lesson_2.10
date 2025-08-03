@@ -11,7 +11,7 @@ class AllergicView extends ChangeNotifier {
 
 
 
-  List cuisines=[];
+  List allergics=[];
   bool isloading=false;
   void getalergic() async{
 
@@ -19,7 +19,7 @@ class AllergicView extends ChangeNotifier {
     notifyListeners();
 
     var response =await dio.get("/allergic/list");
-    cuisines=response.data;
+    allergics=response.data;
     isloading=false;
     notifyListeners();
 

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lesson2_10/features/categories/pages/CategorySourse.dart';
-import 'package:lesson2_10/features/login/pages/__login_page_forgot.dart';
-import 'package:lesson2_10/features/login/pages/login_page.dart';
+import 'package:lesson2_10/features/onboarding/pages/cusines_page.dart';
 
-import 'features/login/pages/register_page.dart';
+import 'features/onboarding/pages/onboarding_details.dart';
+
 
 
 
@@ -19,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
 
         debugShowCheckedModeBanner: false,
-        home: RegisterPage());
+        home: OnboardingDetails());
   }
 }
 

@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import 'package:lesson2_10/core/clients/dio_cielent.dart';

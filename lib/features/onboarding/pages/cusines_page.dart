@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lesson2_10/features/categories/pages/CategorySourse.dart';
+import 'package:lesson2_10/features/categories/pages/DetailPage.dart';
+import 'package:lesson2_10/features/onboarding/pages/allergic_page.dart';
 import 'package:lesson2_10/features/onboarding/widgets/category_cusines.dart';
 import 'package:lesson2_10/features/onboarding/manager/cusiness_view.dart';
 import 'package:provider/provider.dart';
@@ -124,7 +127,10 @@ class CusinesPage extends StatelessWidget {
                           fixedSize: Size(162, 45),
                         ),
 
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Categorysourse()));
+
+                        },
                         child: Text(
                           "Skip",
                           style: TextStyle(color: AppColors.pink, fontSize: 20),
@@ -137,7 +143,9 @@ class CusinesPage extends StatelessWidget {
                           fixedSize: Size(162, 45),
                         ),
 
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>AlergicPage()));
+                        },
                         child: Text(
                           "Continue",
                           style: TextStyle(color: Colors.white, fontSize: 20),
