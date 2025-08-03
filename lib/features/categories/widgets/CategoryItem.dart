@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'features/pages/DetailPage.dart';
+import '../pages/DetailPage.dart';
 
 class CategoryItem extends StatelessWidget {
   const CategoryItem({

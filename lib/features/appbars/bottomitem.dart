@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lesson2_10/features/pages/DetailPage.dart';
-import 'package:lesson2_10/utils/app_colors.dart';
+import 'package:lesson2_10/features/categories/pages/DetailPage.dart';
+
+import '../../core/utils/app_colors.dart';
 
 class BottomItem extends StatelessWidget {
   const BottomItem({

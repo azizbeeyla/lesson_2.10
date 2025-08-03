@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lesson2_10/features/categories/managers/category_view.dart';
+import 'package:provider/provider.dart';
 
 import 'bottomitem.dart';
-import '../pages/CategorySourse.dart';
 
 class RecipeAppBarBottom extends StatelessWidget implements PreferredSizeWidget {
   const RecipeAppBarBottom({
@@ -12,34 +13,34 @@ class RecipeAppBarBottom extends StatelessWidget implements PreferredSizeWidget 
   final num selectedIndex;
 
   @override
-  Size get preferredSize => Size(double.infinity, 25);
+  Size get preferredSize => Size(double.infinity, 40);
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: fetchCategories(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
+    return ChangeNotifierProvider(
+        create: (context) =>  CategoryView(),    child: Consumer<CategoryView>(
+        builder: (context, vm, child) {
           return SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 39, vertical: 7),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
               child: Row(
-                spacing: 19,
                 children: List.generate(
-                  snapshot.data!.length,
-                      (index) => BottomItem(
-                    id: snapshot.data![index]['id'],
-                    title: snapshot.data![index]['title'],
-                    isSelected: snapshot.data![index]['id'] == selectedIndex,
+                  vm.categoies.length,
+                      (index) => Padding(
+                    padding: const EdgeInsets.only(right: 15),
+                    child: BottomItem(
+                      id: vm.categoies[index]['id'],
+                      title: vm.categoies[index]['title'],
+                      isSelected: vm.categoies[index]['id'] == selectedIndex,
+                    ),
                   ),
                 ),
               ),
             ),
           );
-        }
-        return SizedBox.shrink();
-      },
+        },
+      ),
     );
   }
 }

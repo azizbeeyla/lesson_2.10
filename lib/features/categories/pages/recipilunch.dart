@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lesson2_10/core/clients/dio_cielent.dart';
 
-import '../../utils/app_colors.dart';
-import '../appbars/recipi_appbar.dart';
+import '../../../core/utils/app_colors.dart';
+import '../../appbars/recipi_appbar.dart';
 import 'CategorySourse.dart';
 class CategoryDetailsRecipe extends StatefulWidget {
   final int recipeId;

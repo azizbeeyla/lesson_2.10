@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lesson2_10/utils/app_colors.dart';
+import '../../core/utils/app_colors.dart';
 
 import 'iconbutton.dart';
 

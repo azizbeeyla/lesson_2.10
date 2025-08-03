@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:lesson2_10/features/pages/CategorySourse.dart';
-import 'package:lesson2_10/features/pages/login_page.dart';
-import 'package:lesson2_10/utils/app_colors.dart';
-import 'package:lesson2_10/features/widgets/categories.dart';
-import 'package:lesson2_10/features/widgets/recipeItem.dart';
+import 'package:lesson2_10/features/categories/pages/CategorySourse.dart';
+import 'package:lesson2_10/features/login/pages/__login_page_forgot.dart';
+import 'package:lesson2_10/features/login/pages/login_page.dart';
 
-import 'features/widgets/Navigators.dart';
-import 'features/widgets/categories.dart';
+import 'features/login/pages/register_page.dart';
+
+
 
 void main() {
   runApp(MyApp());
@@ -21,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
 
         debugShowCheckedModeBanner: false,
-        home: Categorysourse());
+        home: RegisterPage());
   }
 }
 

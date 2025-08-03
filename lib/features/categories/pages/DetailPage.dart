@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:lesson2_10/features/pages/recipilunch.dart';
-import 'package:lesson2_10/features/widgets/Navigators.dart';
-import 'package:lesson2_10/utils/app_colors.dart';
+import 'package:lesson2_10/features/categories/pages/recipilunch.dart';
+import 'package:lesson2_10/features/categories/widgets/Navigators.dart';
+import '../../../core/clients/dio_cielent.dart';
+import '../../../core/utils/app_colors.dart';
+import 'package:lesson2_10/core/clients/dio_cielent.dart';
 
-import '../appbars/recipi_appbar.dart';
-import '../appbars/recipi_appbar_bottom.dart';
+import '../../appbars/recipi_appbar.dart';
+import '../../appbars/recipi_appbar_bottom.dart';
 import 'CategorySourse.dart';
 import '../widgets/recipeItem.dart';
 
