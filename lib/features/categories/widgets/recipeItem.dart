@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../data/models/categorymodels/detail_model.dart';
 import 'categories.dart';
 
 class RecipeItem extends StatelessWidget {
@@ -8,7 +9,7 @@ class RecipeItem extends StatelessWidget {
     required this.recipe,
   });
 
-  final Map<String, dynamic> recipe;
+  final DetailModel recipe;
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +20,9 @@ class RecipeItem extends StatelessWidget {
         child: Stack(
           alignment: Alignment.topCenter,
           children: [
-        CategoriesCard(image: recipe['photo'], textname: recipe["title"],
-          textdetail: recipe['description'],
-          textminute: recipe['timeRequired'], textstar: recipe['rating']),
+        CategoriesCard(image: recipe.image, textname: recipe.textname,
+          textdetail: recipe.textdetail,
+          textminute: recipe.textminute, textstar: recipe.textstar),
 
     ])));
 

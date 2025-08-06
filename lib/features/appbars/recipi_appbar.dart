@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../core/utils/app_colors.dart';
 
 import 'iconbutton.dart';
@@ -16,10 +17,13 @@ class RecipeAppBarMain extends StatelessWidget implements PreferredSizeWidget {
   final PreferredSizeWidget? bottom;
 
   @override
-  Size get preferredSize => Size(
-    double.infinity,
-    bottom != null ? bottom!.preferredSize.height + toolbarHeight : toolbarHeight,
-  );
+  Size get preferredSize =>
+      Size(
+        double.infinity,
+        bottom != null
+            ? bottom!.preferredSize.height + toolbarHeight
+            : toolbarHeight,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +36,13 @@ class RecipeAppBarMain extends StatelessWidget implements PreferredSizeWidget {
           backgroundColor: Colors.transparent,
           foregroundColor: AppColors.mainpink,
           onPressed: () {
-            Navigator.pop(context);
+            context.pop();
           },
         ),
       ),
       centerTitle: true,
-      title: Text(title, style: TextStyle(color: AppColors.mainpink,fontSize: 20)),
+      title: Text(
+          title, style: TextStyle(color: AppColors.mainpink, fontSize: 20)),
       actionsPadding: EdgeInsets.only(right: 24),
       actions: [
 

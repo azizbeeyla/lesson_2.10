@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lesson2_10/features/categories/pages/CategorySourse.dart';
-import 'package:lesson2_10/features/onboarding/pages/cusines_page.dart';
 
-import 'features/onboarding/pages/onboarding_details.dart';
+import 'core/router/router_class.dart';
+
 
 
 
@@ -21,10 +21,13 @@ class MyApp extends StatelessWidget {
       designSize: Size(430, 932),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: MaterialApp(
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+routerConfig: RouterClass().router,
 
-          debugShowCheckedModeBanner: false,
-          home: Categorysourse()),
+      )
+
+
     );
   }
 }

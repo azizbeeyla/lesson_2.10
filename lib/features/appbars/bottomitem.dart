@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lesson2_10/features/categories/pages/DetailPage.dart';
 
 import '../../core/utils/app_colors.dart';
@@ -19,10 +20,13 @@ class BottomItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder:(context) => CategoryDetailPagee(categoryId: id, title: title),
-          ),
+        final encodedTitle = Uri.encodeComponent(title);
+        context.pushNamed(
+          'categoryDetail',
+          pathParameters: {
+            'id': id.toString(),
+            'title': encodedTitle,
+          },
         );
       },
       child: Container(

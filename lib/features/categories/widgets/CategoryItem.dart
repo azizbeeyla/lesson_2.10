@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../pages/DetailPage.dart';
 
@@ -18,10 +19,13 @@ class CategoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => CategoryDetailPagee(categoryId: id, title: title,),
-          ),
+        final encodedTitle = Uri.encodeComponent(title);
+        context.pushNamed(
+          'categoryDetail',
+          pathParameters: {
+            'id': id.toString(),
+            'title': encodedTitle,
+          },
         );
       },
       child: Column(

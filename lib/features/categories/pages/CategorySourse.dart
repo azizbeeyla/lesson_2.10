@@ -41,9 +41,9 @@ class Categorysourse extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final item = cv.categoies[index];
                   return CategoryItem(
-                    id: item['id'],
-                    title: item['title'],
-                    image: item['image'],
+                    id: item.id,
+                    title: item.title,
+                    image: item.image,
                   );
                 },
               ),

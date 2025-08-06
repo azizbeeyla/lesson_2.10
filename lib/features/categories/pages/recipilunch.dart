@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lesson2_10/features/categories/widgets/Navigators.dart';
 import 'package:provider/provider.dart';
-
 import '../../../core/utils/app_colors.dart';
 import '../../appbars/recipi_appbar.dart';
 import '../managers/recipi_lunch_view.dart';
@@ -11,7 +11,7 @@ class CategoryDetailsRecipe extends StatelessWidget {
   final String title;
   final num rating;
 
-  const CategoryDetailsRecipe({
+  CategoryDetailsRecipe({
     super.key,
     required this.recipeId,
     required this.title,
@@ -23,30 +23,30 @@ class CategoryDetailsRecipe extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => RecipeDetailViewModel()..fetchRecipeDetails(recipeId),
       child: Consumer<RecipeDetailViewModel>(
-        builder: (context, viewModel, _) {
-          if (viewModel.isLoading) {
-            return  Scaffold(
-              body: Center(child: CircularProgressIndicator()),
-            );
+        builder: (context, vm, _) {
+          if (vm.isLoading) {
+            return Scaffold(body: Center(child: CircularProgressIndicator()));
           }
 
-          final recipe = viewModel.recipeData;
+          final recipe = vm.recipeData;
 
           if (recipe == null) {
-            return const Scaffold(
-              body: Center(child: Text("Xatolik yuz berdi")),
-            );
+            return Scaffold(body: Center(child: Text("Xatolik yuz berdi")));
           }
 
           return Scaffold(
-            appBar: RecipeAppBarMain(title: title),
-            backgroundColor: AppColors.baige,
+            extendBody: true,
+            backgroundColor:AppColors.baige,
+            appBar: RecipeAppBarMain(
+              toolbarHeight: 55,
+              title: title,
+            ),
             body: SingleChildScrollView(
-              padding:  EdgeInsets.symmetric(horizontal: 37),
+              padding: EdgeInsets.symmetric(horizontal: 37),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                   SizedBox(height: 50),
+                  SizedBox(height: 50),
                   Container(
                     height: 337,
                     decoration: BoxDecoration(
@@ -55,24 +55,23 @@ class CategoryDetailsRecipe extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        if (recipe['photo'] != null)
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.network(
-                              recipe['photo'],
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                              height: 281,
-                            ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(
+                            recipe.image,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            height: 281,
                           ),
+                        ),
                         Padding(
-                          padding:  EdgeInsets.all(10),
+                          padding: EdgeInsets.all(10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
-                                recipe['title'] ?? '',
-                                style:  TextStyle(
+                                recipe.textname,
+                                style: TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 20,
                                   color: Colors.white,
@@ -80,16 +79,16 @@ class CategoryDetailsRecipe extends StatelessWidget {
                               ),
                               Row(
                                 children: [
-                                   Icon(Icons.star, color: Colors.white, size: 12),
+                                  Icon(Icons.star, color: Colors.white, size: 12),
                                   Text(
-                                    "${recipe['stars'] ?? rating}",
-                                    style:  TextStyle(fontSize: 12, color: Colors.white),
+                                    "${recipe.textstar}",
+                                    style: TextStyle(fontSize: 12, color: Colors.white),
                                   ),
-                                   SizedBox(width: 10),
-                                   Icon(Icons.comment, color: Colors.white, size: 12),
+                                  SizedBox(width: 10),
+                                  Icon(Icons.comment, color: Colors.white, size: 12),
                                   Text(
-                                    "${recipe['comments'] ?? '0'}",
-                                    style:  TextStyle(fontSize: 12, color: Colors.white),
+                                    "${recipe.comments ?? 0}",
+                                    style: TextStyle(fontSize: 12, color: Colors.white),
                                   ),
                                 ],
                               ),
@@ -99,102 +98,90 @@ class CategoryDetailsRecipe extends StatelessWidget {
                       ],
                     ),
                   ),
-
-                   SizedBox(height: 26),
-
+                  SizedBox(height: 26),
                   Row(
                     children: [
                       CircleAvatar(
                         radius: 30,
-                        backgroundImage: NetworkImage(recipe['user']['profilePhoto'] ?? ''),
+                        backgroundImage: NetworkImage(recipe.user.profilePhoto),
                       ),
-                       SizedBox(width: 15),
+                      SizedBox(width: 15),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(recipe['user']['username'] ?? '', style: const TextStyle(fontSize: 12, color: Colors.white)),
-                          Text(recipe['user']['firstname'] ?? '', style: const TextStyle(fontSize: 12, color: Colors.white)),
+                          Text(recipe.user.username, style: TextStyle(fontSize: 12, color: Colors.white)),
+                          Text(recipe.user.firstname, style: TextStyle(fontSize: 12, color: Colors.white)),
                         ],
                       ),
-                       Spacer(),
+                      Spacer(),
                       Container(
                         width: 109,
-                        padding:  EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
                           color: AppColors.pink,
                         ),
-                        child:  Text(
-                          textAlign: TextAlign.center,
+                        child: Text(
                           'Following',
+                          textAlign: TextAlign.center,
                           style: TextStyle(fontSize: 12, color: Colors.red),
                         ),
                       ),
-                       SizedBox(width: 9),
-                       Icon(Icons.more_vert, color: Colors.white),
+                      SizedBox(width: 9),
+                      Icon(Icons.more_vert, color: Colors.white),
                     ],
                   ),
-
-                   SizedBox(height: 20),
-                   Divider(color: Colors.white),
-                   SizedBox(height: 31),
-
+                  SizedBox(height: 20),
+                  Divider(color: Colors.white),
+                  SizedBox(height: 31),
                   Row(
                     children: [
-                       Text(
+                      Text(
                         'Details',
                         style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: AppColors.mainpink),
                       ),
-                       SizedBox(width: 15),
+                      SizedBox(width: 15),
                       SvgPicture.asset("assets/clock.svg", color: Colors.white, width: 20),
-                       SizedBox(width: 5),
-                      Text("${recipe['timeRequired'] ?? '0'}min", style: const TextStyle(color: Colors.white)),
+                      SizedBox(width: 5),
+                      Text("${recipe.textminute} min", style: TextStyle(color: Colors.white)),
                     ],
                   ),
-
-                   SizedBox(height: 10),
-                  Text(recipe['description'] ?? '', style: const TextStyle(color: Colors.white)),
-
-                   SizedBox(height: 31),
-
-                   Text(
+                  SizedBox(height: 10),
+                  Text(recipe.textdetail, style: TextStyle(color: Colors.white)),
+                  SizedBox(height: 31),
+                  Text(
                     'Ingredients',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: AppColors.mainpink),
                   ),
-                   SizedBox(height: 21),
+                  SizedBox(height: 21),
                   Text(
-                    ((recipe['ingredients'] as List?) ?? [])
-                        .map((e) => "${e['amount']} ${e['name']}")
-                        .join("\n"),
-                    style:  TextStyle(color: Colors.white),
+                    recipe.ingredients.map((e) => "${e.amount} ${e.name}").join("\n"),
+                    style: TextStyle(color: Colors.white),
                   ),
-
-                   SizedBox(height: 31),
-
-                   Text(
+                  SizedBox(height: 31),
+                  Text(
                     '6 Easy Step',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: AppColors.mainpink),
                   ),
-                   SizedBox(height: 11),
+                  SizedBox(height: 11),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: ((recipe['instructions'] as List?) ?? []).asMap().entries.map((entry) {
-                      final index = entry.key;
-                      final e = entry.value;
+                    children: recipe.instructions.map((e) {
                       return Container(
-                        margin:  EdgeInsets.only(bottom: 8),
-                        padding:  EdgeInsets.all(12),
+                        margin: EdgeInsets.only(bottom: 8),
+                        padding: EdgeInsets.all(12),
                         decoration: BoxDecoration(
                           color: AppColors.pink,
                           borderRadius: BorderRadius.circular(14),
                         ),
-                        child: Text("${e['order']}. ${e['text'] ?? ''}"),
+                        child: Text("${e.order}. ${e.text}"),
                       );
                     }).toList(),
                   ),
                 ],
               ),
             ),
+            bottomNavigationBar: Navigations(),
           );
         },
       ),
