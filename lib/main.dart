@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lesson2_10/features/categories/pages/CategorySourse.dart';
 import 'package:lesson2_10/features/onboarding/pages/cusines_page.dart';
 
 import 'features/onboarding/pages/onboarding_details.dart';
@@ -15,10 +17,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return ScreenUtilInit(
+      designSize: Size(430, 932),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      child: MaterialApp(
 
-        debugShowCheckedModeBanner: false,
-        home: OnboardingDetails());
+          debugShowCheckedModeBanner: false,
+          home: Categorysourse()),
+    );
   }
 }
 

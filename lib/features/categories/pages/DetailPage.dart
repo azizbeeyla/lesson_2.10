@@ -1,22 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:lesson2_10/features/categories/pages/recipilunch.dart';
-import 'package:lesson2_10/features/categories/widgets/Navigators.dart';
-import '../../../core/clients/dio_cielent.dart';
-import '../../../core/utils/app_colors.dart';
-import 'package:lesson2_10/core/clients/dio_cielent.dart';
+// lib/features/categories/pages/category_detail_page.dart
 
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../../core/utils/app_colors.dart';
 import '../../appbars/recipi_appbar.dart';
 import '../../appbars/recipi_appbar_bottom.dart';
-import 'CategorySourse.dart';
+import '../managers/category_detail.dart';
 import '../widgets/recipeItem.dart';
-
-Future<List> fetchRecipes({required num categoryId}) async {
-  var response = await dio.get('/recipes/list?Category=$categoryId');
-  if (response.statusCode != 200) {
-    throw Exception("Ritseplarni olib kelishda xatolik: ${response.data}");
-  }
-  return response.data;
-}
+import '../widgets/Navigators.dart';
+import '../pages/recipilunch.dart';
 
 class CategoryDetailPagee extends StatelessWidget {
   const CategoryDetailPagee({
@@ -24,61 +16,79 @@ class CategoryDetailPagee extends StatelessWidget {
     required this.categoryId,
     required this.title,
   });
+
   final num categoryId;
   final String title;
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: fetchRecipes(categoryId: categoryId),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Scaffold(body: Center(child: CircularProgressIndicator()));
-        } else if (snapshot.hasError) {
-          return Scaffold(body: Center(child: Text(snapshot.error.toString())));
-        } else if (snapshot.hasData) {
-          return Scaffold(
-            backgroundColor: AppColors.baige,
-            extendBody: true,
-            appBar: RecipeAppBarMain(
+    return ChangeNotifierProvider<CategoryDetailViewModel>(
+      create: (_) => CategoryDetailViewModel()..fetchRecipes(categoryId),
+      child: ScaffoldBuilder(title: title, categoryId: categoryId),
+    );
+  }
+}
 
-              toolbarHeight: 75,
-              title: title,
-              bottom: RecipeAppBarBottom(selectedIndex: categoryId),
-            ),
-            body: GridView.builder(
-              padding: EdgeInsets.fromLTRB(37, 19, 37, 126),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 19,
-                mainAxisSpacing: 30,
-                mainAxisExtent: 226,
-              ),
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) =>
-                  GestureDetector(
-                      onTap: (){
-                        // print(snapshot.data?[index]['id']);
-                        if(snapshot.data != null) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context)=> CategoryDetailsRecipe(recipeId: snapshot.data?[index]['id'],
-                                title: title,
-                                rating: num.tryParse(snapshot.data![index]['rating'].toString()) ?? 0,                              ),
-                            ),
-                          );
-                        }
-                      },
-                      child: RecipeItem(recipe: snapshot.data![index])),
-            ),
-            bottomNavigationBar: Navigations(),
+class ScaffoldBuilder extends StatelessWidget {
+  final num categoryId;
+  final String title;
+
+  const ScaffoldBuilder({
+    super.key,
+    required this.categoryId,
+    required this.title,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final viewModel = context.watch<CategoryDetailViewModel>();
+
+    if (viewModel.isLoading) {
+      return Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
+    if (viewModel.error != null) {
+      return Scaffold(body: Center(child: Text(viewModel.error!)));
+    }
+
+    return Scaffold(
+      backgroundColor: AppColors.baige,
+      extendBody: true,
+      appBar: RecipeAppBarMain(
+        toolbarHeight: 75,
+        title: title,
+        bottom: RecipeAppBarBottom(selectedIndex: categoryId),
+      ),
+      body: GridView.builder(
+        padding: const EdgeInsets.fromLTRB(37, 19, 37, 126),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 19,
+          mainAxisSpacing: 30,
+          mainAxisExtent: 226,
+        ),
+        itemCount: viewModel.recipes.length,
+        itemBuilder: (context, index) {
+          final recipe = viewModel.recipes[index];
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CategoryDetailsRecipe(
+                    recipeId: recipe['id'],
+                    title: title,
+                    rating:
+                    num.tryParse(recipe['rating'].toString()) ?? 0,
+                  ),
+                ),
+              );
+            },
+            child: RecipeItem(recipe: recipe),
           );
-        } else {
-          return Scaffold(
-              body: Center(child: Text("Something went horribly wrong...")));
-        }
-      },
+        },
+      ),
+      bottomNavigationBar: Navigations(),
     );
   }
 }
