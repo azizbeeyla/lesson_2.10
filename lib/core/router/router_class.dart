@@ -3,12 +3,15 @@ import 'package:go_router/go_router.dart';
 import 'package:lesson2_10/core/router/router_name.dart';
 import 'package:lesson2_10/features/categories/pages/CategorySourse.dart';
 import 'package:lesson2_10/features/categories/pages/DetailPage.dart';
+import 'package:lesson2_10/features/onboarding/pages/cuisines_alergic.dart';
+import 'package:lesson2_10/features/onboarding/pages/cusiness_page.dart';
+import 'package:lesson2_10/features/onboarding/pages/levels_page.dart';
 
 import '../../features/categories/pages/recipilunch.dart';
 
 class RouterClass {
   final GoRouter router = GoRouter(
-    initialLocation: RouterName.categorysourse,
+    initialLocation: RouterName.levels,
     routes: [
       GoRoute(
         path: RouterName.categorysourse,
@@ -40,6 +43,18 @@ class RouterClass {
           );
         },
       ),
+      GoRoute(
+        path: RouterName.levels,
+        builder: (context, state) => LevelsContainer(),
+      ),
+
+      GoRoute(
+        path: RouterName.cuisines,
+        builder: (context, state) => CusinesPage(),
+      ),
+      GoRoute(path: RouterName.cuisinesallergic,
+      builder: (context, state)=> CuisinesAlergic(),
+      )
     ],
   );
 }
