@@ -6,4 +6,8 @@ class RouterName{
   static String levels=("/levels");
   static String cuisines=("/cuisines");
   static String cuisinesallergic=("/allergic");
+  static String onboarding1=("/onboarding1");
+  static String onboarding2=("/onboarding2");
+  static String onboarding3=("/onboarding3");
+  static String pageview=("/pageview");
 }

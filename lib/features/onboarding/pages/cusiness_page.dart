@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lesson2_10/core/router/router_name.dart';
-import 'package:lesson2_10/features/categories/pages/CategorySourse.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/utils/app_colors.dart';
@@ -36,8 +36,8 @@ class CusinesPage extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(bottom: 40.0),
               child: Container(
-                width: 230,
-                height: 12,
+                width: 230.w,
+                height: 12.h,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(100),

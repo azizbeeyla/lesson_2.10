@@ -6,12 +6,16 @@ import 'package:lesson2_10/features/categories/pages/DetailPage.dart';
 import 'package:lesson2_10/features/onboarding/pages/cuisines_alergic.dart';
 import 'package:lesson2_10/features/onboarding/pages/cusiness_page.dart';
 import 'package:lesson2_10/features/onboarding/pages/levels_page.dart';
+import 'package:lesson2_10/features/onboarding/pages/onboarding3_page.dart';
+import 'package:lesson2_10/features/onboarding/pages/onboarding_page1.dart';
+import 'package:lesson2_10/features/onboarding/pages/page_view.dart';
 
 import '../../features/categories/pages/recipilunch.dart';
+import '../../features/onboarding/pages/onboarding_page2.dart';
 
 class RouterClass {
   final GoRouter router = GoRouter(
-    initialLocation: RouterName.levels,
+    initialLocation: RouterName.pageview,
     routes: [
       GoRoute(
         path: RouterName.categorysourse,
@@ -52,8 +56,24 @@ class RouterClass {
         path: RouterName.cuisines,
         builder: (context, state) => CusinesPage(),
       ),
-      GoRoute(path: RouterName.cuisinesallergic,
-      builder: (context, state)=> CuisinesAlergic(),
+      GoRoute(
+        path: RouterName.cuisinesallergic,
+        builder: (context, state) => CuisinesAlergic(),
+      ),
+      GoRoute(
+        path: RouterName.onboarding1,
+        builder: (context, state) => OnboardingPage1(),
+      ),
+      GoRoute(
+        path: RouterName.onboarding2,
+        builder: (context, state) => OnboardingPage2(),
+      ),
+      GoRoute(
+        path: RouterName.onboarding3,
+        builder: (context, state) => OnboardingPage3(),
+      ),
+      GoRoute(path: RouterName.pageview,
+      builder: (context,state)=>OnboardingScreen()
       )
     ],
   );
