@@ -4,11 +4,12 @@ import '../../../data/repositry/sign_up_repostriy.dart';
 import '../../../data/result.dart';
 
 class SignUpViewModel extends ChangeNotifier {
-  final SignUpRepository repository = SignUpRepository();
-
+final SignUpRepository _signupRepo;
   bool isLoading = false;
   String? error;
   bool success = false;
+
+  SignUpViewModel({required SignUpRepository signupRepo}) : _signupRepo = signupRepo;
 
   Future<void> register(SignUpModel model) async {
     isLoading = true;
@@ -16,7 +17,7 @@ class SignUpViewModel extends ChangeNotifier {
     success = false;
     notifyListeners();
 
-    final result = await repository.register(model);
+    final result = await _signupRepo.register(model);
 
     result.fold(
           (err) {

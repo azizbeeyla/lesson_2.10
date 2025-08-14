@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lesson2_10/core/clients/dio_cielent.dart';
+import 'package:lesson2_10/data/repositry/login_repositiry.dart';
+import 'package:lesson2_10/data/repositry/sign_up_repostriy.dart';
+import 'package:lesson2_10/features/authenfiaction/managers/sign_up_viewmodel.dart';
 import 'package:provider/provider.dart';
 import 'core/router/router_class.dart';
 import 'features/authenfiaction/managers/login_view_model.dart';
@@ -8,8 +12,24 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => LoginViewModel()),
-
+        Provider(create: (context) => ApiClient()),
+        Provider(
+          create: (context) =>
+              AuthRepository(apiClient: context.read<ApiClient>()),
+        ),
+        Provider(
+          create: (context) =>
+              SignUpRepository(apiClient: context.read<ApiClient>()),
+        ),
+        ChangeNotifierProvider<LoginViewModel>(
+          create: (context) => LoginViewModel(
+            authRepo: context.read<AuthRepository>(),
+          ),
+        ),
+        ChangeNotifierProvider<SignUpViewModel>(
+          create: (context) =>
+              SignUpViewModel(signupRepo: context.read<SignUpRepository>()),
+        ),
       ],
       child: const MyApp(),
     ),

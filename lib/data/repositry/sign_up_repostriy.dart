@@ -3,7 +3,9 @@ import '../../core/clients/dio_cielent.dart';
 import '../models/authefincation_models/sign_up.dart';
 
 class SignUpRepository {
-  final ApiClient apiClient = ApiClient();
+  final ApiClient apiClient;
+
+  SignUpRepository({required this.apiClient});
 
   Future<Result<Map<String, dynamic>>> register(SignUpModel model) async {
     final result = await apiClient.post(

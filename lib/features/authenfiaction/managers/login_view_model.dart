@@ -4,19 +4,20 @@ import '../../../data/repositry/login_repositiry.dart';
 import '../../../data/result.dart';
 
 class LoginViewModel extends ChangeNotifier {
-  final AuthRepository repository = AuthRepository();
+  final AuthRepository _authRepo;
 
   bool isLoading = false;
   String? error;
   String? token;
+
+  LoginViewModel({required AuthRepository authRepo}) : _authRepo = authRepo;
 
   Future<bool> login(String login, String password) async {
     isLoading = true;
     error = null;
     token = null;
     notifyListeners();
-print("Login va Password${login}${password}");
-    final result = await repository.login(
+    final result = await _authRepo.login(
       LoginModel(login: login, password: password),
     );
 

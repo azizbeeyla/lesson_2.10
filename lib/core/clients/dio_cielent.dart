@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:lesson2_10/data/result.dart';
 
-
 class ApiClient {
   final Dio dio = Dio(
     BaseOptions(
@@ -10,15 +9,20 @@ class ApiClient {
     ),
   );
 
-  Future<Result<T>> get<T>(String path, {
-    Map<String, dynamic>? queryParams,
-  }) async {
+  Future<Result<T>> get<T>(
+      String path, {
+        Map<String, dynamic>? queryParams,
+      }) async {
     try {
+      print("GET $path");
       var response = await dio.get(path, queryParameters: queryParams);
-      if (response.statusCode! >=200&&response.statusCode!<300) {
-        return Result.error(Exception(response.data));
+      print("Status: ${response.statusCode}");
+      print("Response: ${response.data}");
+
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return Result.ok(response.data as T);
       }
-      return Result.ok(response.data as T);
+      return Result.error(Exception(response.data));
     } on Exception catch (exception) {
       return Result.error(exception);
     }
@@ -26,11 +30,13 @@ class ApiClient {
 
   Future<Result> post(String path, {required Map<String, dynamic> data}) async {
     try {
+
       var response = await dio.post(path, data: data);
 
-      if (
-          response.statusCode! >= 200 &&
-          response.statusCode! < 300) {
+      print("Status: ${response.statusCode}");
+      print("Response: ${response.data}");
+
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return Result.ok(response.data);
       } else {
         return Result.error(Exception(response.data));
@@ -39,5 +45,4 @@ class ApiClient {
       return Result.error(e);
     }
   }
-
 }

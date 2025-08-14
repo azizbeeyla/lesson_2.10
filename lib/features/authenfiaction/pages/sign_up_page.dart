@@ -38,177 +38,174 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => SignUpViewModel(),
-      child: Consumer<SignUpViewModel>(
-        builder: (context, vm, child) {
-          return Scaffold(
-            backgroundColor: AppColors.baige,
-            appBar: AppBar(
-              centerTitle: true,
-              title: Text(
-                "Sign Up",
-                style: TextStyle(
-                  color: AppColors.mainpink,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                ),
+    return Consumer<SignUpViewModel>(
+      builder: (context, vm, child) {
+        return Scaffold(
+          backgroundColor: AppColors.baige,
+          appBar: AppBar(
+            centerTitle: true,
+            title: Text(
+              "Sign Up",
+              style: TextStyle(
+                color: AppColors.mainpink,
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
               ),
-              backgroundColor: AppColors.baige,
             ),
-            body: Padding(
-              padding: const EdgeInsets.only(top: 70.0, left: 37, right: 37),
-              child: SingleChildScrollView(
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    children: [
-                      RecipeTextField(
-                        hintText: "John Doe",
-                        label: "Full Name",
-                        controller: fullnameController,
+            backgroundColor: AppColors.baige,
+          ),
+          body: Padding(
+            padding: const EdgeInsets.only(top: 70.0, left: 37, right: 37),
+            child: SingleChildScrollView(
+              child: Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    RecipeTextField(
+                      hintText: "John Doe",
+                      label: "Full Name",
+                      controller: fullnameController,
+                    ),
+                    SizedBox(height: 9.h),
+                    RecipeTextField(
+                      label: "Email",
+                      hintText: "example@example.com",
+                      controller: emailController,
+                    ),
+                    SizedBox(height: 9.h),
+                    RecipeTextField(
+                      label: "Mobile Number",
+                      hintText: "+123 456 789",
+                      controller: mobileController,
+                    ),
+                    SizedBox(height: 9.h),
+                    RecipeTextField(
+                      hintText: "YY-MM-DD",
+                      label: "Date of Birth",
+                      controller: dateController,
+                    ),
+                    SizedBox(height: 9.h),
+                    RecipeTextField(
+                      hintText: "********",
+                      label: "Password",
+                      controller: passwordController,
+                      isPassword: true,
+                    ),
+                    SizedBox(height: 9.h),
+                    RecipeTextField(
+                      hintText: "********",
+                      label: "Confirm Password",
+                      controller: confirmController,
+                      isPassword: true,
+                    ),
+                    SizedBox(height: 40.h),
+                    if (vm.error != null)
+                      Text(
+                        vm.error!,
+                        style: const TextStyle(color: Colors.red),
                       ),
-                      SizedBox(height: 9.h),
-                      RecipeTextField(
-                        label: "Email",
-                        hintText: "example@example.com",
-                        controller: emailController,
-                      ),
-                      SizedBox(height: 9.h),
-                      RecipeTextField(
-                        label: "Mobile Number",
-                        hintText: "+123 456 789",
-                        controller: mobileController,
-                      ),
-                      SizedBox(height: 9.h),
-                      RecipeTextField(
-                        hintText: "YY-MM-DD",
-                        label: "Date of Birth",
-                        controller: dateController,
-                      ),
-                      SizedBox(height: 9.h),
-                      RecipeTextField(
-                        hintText: "********",
-                        label: "Password",
-                        controller: passwordController,
-                        isPassword: true,
-                      ),
-                      SizedBox(height: 9.h),
-                      RecipeTextField(
-                        hintText: "********",
-                        label: "Confirm Password",
-                        controller: confirmController,
-                        isPassword: true,
-                      ),
-                      SizedBox(height: 40.h),
-                      if (vm.error != null)
-                        Text(
-                          vm.error!,
-                          style: const TextStyle(color: Colors.red),
-                        ),
 
-                      SizedBox(
-                        width: 180,
-                        child: Text(
-                          "By continuing, you agree to Terms of Use and Privacy Policy.",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
-                          maxLines: 2,
+                    SizedBox(
+                      width: 180,
+                      child: Text(
+                        "By continuing, you agree to Terms of Use and Privacy Policy.",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
                         ),
+                        maxLines: 2,
                       ),
-                      SizedBox(height: 12),
-                      RecipeButton(
-                        backgroundColor: AppColors.mainpink,
-                        text: vm.isLoading ? "Signing Up..." : "Sign Up",
-                        onPressed: vm.isLoading
-                            ? null
-                            : () {
-                          if (formKey.currentState!.validate()) {
-                            if (passwordController.text.trim() !=
-                                confirmController.text.trim()) {
-                              ScaffoldMessenger.of(context).showSnackBar(
+                    ),
+                    SizedBox(height: 12),
+                    RecipeButton(
+                      backgroundColor: AppColors.mainpink,
+                      text: vm.isLoading ? "Signing Up..." : "Sign Up",
+                      onPressed: vm.isLoading
+                          ? null
+                          : () {
+                        if (formKey.currentState!.validate()) {
+                          if (passwordController.text.trim() !=
+                              confirmController.text.trim()) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content:
+                                Text("Passwords do not match"),
+                              ),
+                            );
+                            return;
+                          }
+
+                          final model = SignUpModel(
+                            username: fullnameController.text
+                                .trim()
+                                .replaceAll(" ", "")
+                                .toLowerCase(),
+                            firstName: fullnameController.text
+                                .trim()
+                                .split(" ")
+                                .first,
+                            lastName: fullnameController.text
+                                .trim()
+                                .split(" ")
+                                .length >
+                                1
+                                ? fullnameController.text
+                                .trim()
+                                .split(" ")
+                                .last
+                                : "",
+                            email: emailController.text.trim(),
+                            phoneNumber: mobileController.text.trim(),
+                            birthDate: dateController.text.trim(),
+                            password: passwordController.text.trim(),
+                          );
+
+                          vm.register(model).then((_) {
+                            if (vm.success) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(
                                 const SnackBar(
-                                  content:
-                                  Text("Passwords do not match"),
+                                  content: Text(
+                                      "Registration successful!"),
                                 ),
                               );
-                              return;
+
                             }
-
-                            final model = SignUpModel(
-                              username: fullnameController.text
-                                  .trim()
-                                  .replaceAll(" ", "")
-                                  .toLowerCase(),
-                              firstName: fullnameController.text
-                                  .trim()
-                                  .split(" ")
-                                  .first,
-                              lastName: fullnameController.text
-                                  .trim()
-                                  .split(" ")
-                                  .length >
-                                  1
-                                  ? fullnameController.text
-                                  .trim()
-                                  .split(" ")
-                                  .last
-                                  : "",
-                              email: emailController.text.trim(),
-                              phoneNumber: mobileController.text.trim(),
-                              birthDate: dateController.text.trim(),
-                              password: passwordController.text.trim(),
-                            );
-
-                            vm.register(model).then((_) {
-                              if (vm.success) {
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(
-                                  const SnackBar(
-                                    content: Text(
-                                        "Registration successful!"),
-                                  ),
-                                );
-
-                              }
-                            });
-                          }
-                        }, textcolor: AppColors.whiteText,
-                      ),
-                      SizedBox(height: 12,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Already have an account?",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14,
+                          });
+                        }
+                      }, textcolor: AppColors.whiteText,
                     ),
+                    SizedBox(height: 12,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Already have an account?",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14,
                   ),
-                  SizedBox(width: 5),
-                  Text(
-                    "Login",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14,
-                      color: AppColors.mainpink,
-                    ),
-                  ),
-                ],
-
-              )
-                ]  )
                 ),
+                SizedBox(width: 5),
+                Text(
+                  "Login",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14,
+                    color: AppColors.mainpink,
+                  ),
+                ),
+              ],
+
+            )
+              ]  )
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

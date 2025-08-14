@@ -72,26 +72,24 @@ class _LoginPageState extends State<LoginPage> {
                       backgroundColor: AppColors.pinkorig,
                       text: "Log In",
                       onPressed: () async {
-                          final success = await vm.login(
-                            emailController.text,
-                            passwordController.text,
+                        final success = await vm.login(
+                          emailController.text,
+                          passwordController.text,
+                        );
+
+                        if (success) {
+                          context.push(RouterName.categorysourse);
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                vm.error ?? "Login xatolik",
+                              ),
+                            ),
                           );
-                          if (success) {
-                            if (mounted) {
-                              context.push(RouterName.categorysourse);
-                            }
-                          } else {
-                            if (mounted) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    vm.error ?? "Login xatolik",
-                                  ),
-                                ),
-                              );
-                            }
-                          }
-                        }, textcolor: AppColors.pink,
+                        }
+                      },
+        textcolor: AppColors.pink,
 
                     ),
                     SizedBox(height: 27.h),

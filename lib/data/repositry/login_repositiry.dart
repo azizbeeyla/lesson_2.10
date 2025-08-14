@@ -3,10 +3,13 @@ import '../../core/clients/dio_cielent.dart';
 import '../models/authefincation_models/login_model.dart';
 
 class AuthRepository {
-  final ApiClient apiClient = ApiClient();
+  final ApiClient apiClient;
+
+  AuthRepository({required this.apiClient});
+
+
 
   Future<Result<Map<String, dynamic>>> login(LoginModel model) async {
-    print("keldi${model}");
     final result = await apiClient.post(
       "/auth/login",
       data: model.toJson(),
