@@ -1,29 +1,44 @@
 import 'package:flutter/material.dart';
-
-import 'package:lesson2_10/core/clients/dio_cielent.dart';
 import 'package:lesson2_10/data/models/onboardingmodels/cusines_model.dart';
 
+import '../../../core/clients/dio_cielent.dart';
 
 class CusinessView extends ChangeNotifier {
-  CusinessView(){
+  final ApiClient apiClient = ApiClient();
 
-    getcusines();
+  CusinessView() {
+    getCuisines();
   }
 
+  List<CusinesModel> cuisines = [];
+  bool isLoading = false;
+  String? error;
 
-
-  List<CusinesModel> cuisines=[];
-  bool isloading=false;
-  void getcusines() async{
-
-    isloading=true;
+  Future<void> getCuisines() async {
+    isLoading = true;
+    error = null;
     notifyListeners();
 
-    var response =await dio.get("/cuisines/list");
-    cuisines=(response.data as List).map((x)=>CusinesModel.fromJson(x)).toList() ;
-    isloading=false;
-    notifyListeners();
+    final result = await apiClient.get<dynamic>(
+      "/cuisines/list",
+    );
 
+    result.fold(
+          (e) {
+        error = "Xatolik: $e";
+      },
+          (data) {
+        try {
+          cuisines = (data as List)
+              .map((x) => CusinesModel.fromJson(x))
+              .toList();
+        } catch (e) {
+          error = "Ma'lumotlarni parse qilishda xato: $e";
+        }
+      },
+    );
+
+    isLoading = false;
+    notifyListeners();
   }
 }
-

@@ -16,7 +16,7 @@ class OnboardingPage3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => CategoryView()..getcategory(),
+      create: (context) => CategoryView()..getCategory(),
       child: Scaffold(
         backgroundColor: AppColors.baige,
         appBar: AppBar(
@@ -34,7 +34,7 @@ class OnboardingPage3 extends StatelessWidget {
         ),
         body: Consumer<CategoryView>(
           builder: (context, cv, child) {
-            if (cv.isloading) {
+            if (cv.isLoading) {
               return Center(child: CircularProgressIndicator());
             }
 
@@ -44,7 +44,7 @@ class OnboardingPage3 extends StatelessWidget {
                   height: 557.h,
                   child: GridView.builder(
                     padding: EdgeInsets.symmetric(horizontal: 24),
-                    itemCount: cv.categoies.length,
+                    itemCount: cv.categories.length,
 
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
@@ -53,7 +53,7 @@ class OnboardingPage3 extends StatelessWidget {
                       crossAxisSpacing: 10,
                     ),
                     itemBuilder: (context, index) {
-                      final item = cv.categoies[index];
+                      final item = cv.categories[index];
                       return CategoriesItem(
                         id: item.id,
                         title: item.title,

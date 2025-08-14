@@ -1,34 +1,46 @@
 import 'package:flutter/cupertino.dart';
-
 import '../../../core/clients/dio_cielent.dart';
 import '../../../data/models/onboardingmodels/onboarding_model.dart';
+import '../../../data/result.dart';
 
-class OnBoardingViewModel extends ChangeNotifier{
+class OnBoardingViewModel extends ChangeNotifier {
+  final ApiClient apiClient = ApiClient();
 
-OnBoardingViewModel(int id){
-  getImage(id);
-
-
-}
-  OnboardingModel? images;
-  bool isLoading = false;
-Future<void> getImage(int id) async{
-
-  isLoading=true;
-  notifyListeners();
-  try {
-    final response = await dio.get("/onboarding/list");
-    final list = (response.data as List)
-        .map((e) => OnboardingModel.fromJson(e))
-        .toList();
-
-    images = list.firstWhere((item) => item.id == id);
-  } catch (e) {
-    print("Error: $e");
+  OnBoardingViewModel(int id) {
+    getImage(id);
   }
 
-  isLoading = false;
-  notifyListeners();
-}
+  OnboardingModel? images;
+  bool isLoading = false;
+  String? error;
 
+  Future<void> getImage(int id) async {
+    isLoading = true;
+    error = null;
+    notifyListeners();
+
+    final result = await apiClient.get<dynamic>(
+      "/onboarding/list",
+    );
+
+    result.fold(
+          (e) {
+        error = "Xatolik: $e";
+      },
+          (data) {
+        try {
+          final list = (data as List)
+              .map((x) => OnboardingModel.fromJson(x))
+              .toList();
+
+          images = list.firstWhere((item) => item.id == id);
+        } catch (e) {
+          error = "Ma'lumotlarni parse qilishda xato: $e";
+        }
+      },
+    );
+
+    isLoading = false;
+    notifyListeners();
+  }
 }

@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lesson2_10/core/router/router_name.dart';
+import 'package:lesson2_10/features/authenfiaction/pages/forgot_password_page.dart';
+import 'package:lesson2_10/features/authenfiaction/pages/login_page.dart';
+import 'package:lesson2_10/features/authenfiaction/pages/send_code_page.dart';
+import 'package:lesson2_10/features/authenfiaction/pages/sign_up_page.dart';
 import 'package:lesson2_10/features/categories/pages/CategorySourse.dart';
 import 'package:lesson2_10/features/categories/pages/DetailPage.dart';
 import 'package:lesson2_10/features/onboarding/pages/cuisines_alergic.dart';
@@ -15,7 +19,7 @@ import '../../features/onboarding/pages/onboarding_page2.dart';
 
 class RouterClass {
   final GoRouter router = GoRouter(
-    initialLocation: RouterName.pageview,
+    initialLocation: RouterName.login,
     routes: [
       GoRoute(
         path: RouterName.categorysourse,
@@ -74,7 +78,16 @@ class RouterClass {
       ),
       GoRoute(path: RouterName.pageview,
       builder: (context,state)=>OnboardingScreen()
-      )
+      ),
+      GoRoute(path: RouterName.forgotPassword,
+      builder: (context,state)=>ForgotPasswordPage(),
+      ),
+      GoRoute(path: RouterName.sendcode,builder: (context,state)=>SendCodePage()),
+
+      GoRoute(path: RouterName.login,builder: (context,state)=>LoginPage()),
+      GoRoute(path: RouterName.signup,builder: (context,state)=>SignUpPage()),
+
+
     ],
   );
 }

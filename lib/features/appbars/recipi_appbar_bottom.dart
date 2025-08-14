@@ -26,13 +26,13 @@ class RecipeAppBarBottom extends StatelessWidget implements PreferredSizeWidget 
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
               child: Row(
                 children: List.generate(
-                  vm.categoies.length,
+                  vm.categories.length,
                       (index) => Padding(
                     padding: const EdgeInsets.only(right: 15),
                     child: BottomItem(
-                      id: vm.categoies[index].id,
-                      title: vm.categoies[index].title,
-                      isSelected: vm.categoies[index].id == selectedIndex,
+                      id: vm.categories[index].id,
+                      title: vm.categories[index].title,
+                      isSelected: vm.categories[index].id == selectedIndex,
                     ),
                   ),
                 ),

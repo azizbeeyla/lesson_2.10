@@ -16,6 +16,7 @@ class _NavigationsState extends State<Navigations> {
   Widget build(BuildContext context) {
 
     return SizedBox(
+      
       width: double.infinity,
       height: 126,
       child: Stack(

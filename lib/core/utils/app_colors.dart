@@ -5,4 +5,5 @@ class AppColors{
   static Color textcolor = Color(0xFF3E2823);
   static const Color pink = Color(0xFFEC888D);
   static const Color pinkorig = Color(0xFFFFC6C9);
+  static const Color whiteText = Color(0xFFFFFDF9);
 }

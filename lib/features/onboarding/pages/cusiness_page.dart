@@ -62,7 +62,7 @@ class CusinesPage extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                vm.isloading
+                vm.isLoading
                     ? Center(
                   child: CircularProgressIndicator(),
                 )

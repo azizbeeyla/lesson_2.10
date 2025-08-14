@@ -11,7 +11,7 @@ class Categorysourse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => CategoryView()..getcategory(),
+      create: (context) => CategoryView()..getCategory(),
       child: Scaffold(
         backgroundColor: AppColors.baige,
         appBar: AppbarcusToms(
@@ -24,14 +24,14 @@ class Categorysourse extends StatelessWidget {
         ),
         body: Consumer<CategoryView>(
           builder: (context, cv, child) {
-            if (cv.isloading) {
+            if (cv.isLoading) {
               return Center(child: CircularProgressIndicator());
             }
 
             return Padding(
               padding: const EdgeInsets.all(16.0),
               child: GridView.builder(
-                itemCount: cv.categoies.length,
+                itemCount: cv.categories.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   mainAxisExtent: 171,
@@ -39,7 +39,7 @@ class Categorysourse extends StatelessWidget {
                   crossAxisSpacing: 20,
                 ),
                 itemBuilder: (context, index) {
-                  final item = cv.categoies[index];
+                  final item = cv.categories[index];
                   return CategoryItem(
                     id: item.id,
                     title: item.title,

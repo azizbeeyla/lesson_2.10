@@ -10,4 +10,8 @@ class RouterName{
   static String onboarding2=("/onboarding2");
   static String onboarding3=("/onboarding3");
   static String pageview=("/pageview");
+  static String login=("/login");
+  static String signup=("/signup");
+  static String forgotPassword=("/forgot");
+  static String sendcode=("/sendcode");
 }
