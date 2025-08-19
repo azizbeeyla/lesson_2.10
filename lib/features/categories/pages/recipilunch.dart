@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:lesson2_10/core/router/router_name.dart';
 import 'package:lesson2_10/features/categories/widgets/Navigators.dart';
 import 'package:provider/provider.dart';
 import '../../../core/utils/app_colors.dart';
@@ -36,7 +38,7 @@ class CategoryDetailsRecipe extends StatelessWidget {
 
           return Scaffold(
             extendBody: true,
-            backgroundColor:AppColors.baige,
+            backgroundColor: AppColors.baige,
             appBar: RecipeAppBarMain(
               toolbarHeight: 55,
               title: title,
@@ -79,16 +81,40 @@ class CategoryDetailsRecipe extends StatelessWidget {
                               ),
                               Row(
                                 children: [
-                                  Icon(Icons.star, color: Colors.white, size: 12),
+                                  GestureDetector(
+                                    child: Icon(
+                                      Icons.star,
+                                      color: Colors.white,
+                                      size: 12,
+                                    ),
+                                    onTap: () {
+                                      context.push(RouterName.review);
+                                    },
+                                  ),
                                   Text(
                                     "${recipe.textstar}",
-                                    style: TextStyle(fontSize: 12, color: Colors.white),
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                   SizedBox(width: 10),
-                                  Icon(Icons.comment, color: Colors.white, size: 12),
+                                  GestureDetector(
+                                    child: Icon(
+                                      Icons.comment,
+                                      color: Colors.white,
+                                      size: 12,
+                                    ),
+                                    onTap: (){
+                                      context.push(RouterName.review);
+                                    },
+                                  ),
                                   Text(
                                     "${recipe.comments ?? 0}",
-                                    style: TextStyle(fontSize: 12, color: Colors.white),
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -109,14 +135,23 @@ class CategoryDetailsRecipe extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(recipe.user.username, style: TextStyle(fontSize: 12, color: Colors.white)),
-                          Text(recipe.user.firstname, style: TextStyle(fontSize: 12, color: Colors.white)),
+                          Text(
+                            recipe.user.username,
+                            style: TextStyle(fontSize: 12, color: Colors.white),
+                          ),
+                          Text(
+                            recipe.user.firstname,
+                            style: TextStyle(fontSize: 12, color: Colors.white),
+                          ),
                         ],
                       ),
                       Spacer(),
                       Container(
                         width: 109,
-                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 6,
+                        ),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
                           color: AppColors.pink,
@@ -138,30 +173,54 @@ class CategoryDetailsRecipe extends StatelessWidget {
                     children: [
                       Text(
                         'Details',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: AppColors.mainpink),
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.mainpink,
+                        ),
                       ),
                       SizedBox(width: 15),
-                      SvgPicture.asset("assets/clock.svg", color: Colors.white, width: 20),
+                      SvgPicture.asset(
+                        "assets/clock.svg",
+                        color: Colors.white,
+                        width: 20,
+                      ),
                       SizedBox(width: 5),
-                      Text("${recipe.textminute} min", style: TextStyle(color: Colors.white)),
+                      Text(
+                        "${recipe.textminute} min",
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ],
                   ),
                   SizedBox(height: 10),
-                  Text(recipe.textdetail, style: TextStyle(color: Colors.white)),
+                  Text(
+                    recipe.textdetail,
+                    style: TextStyle(color: Colors.white),
+                  ),
                   SizedBox(height: 31),
                   Text(
                     'Ingredients',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: AppColors.mainpink),
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.mainpink,
+                    ),
                   ),
                   SizedBox(height: 21),
                   Text(
-                    recipe.ingredients.map((e) => "${e.amount} ${e.name}").join("\n"),
+                    recipe.ingredients
+                        .map((e) => "${e.amount} ${e.name}")
+                        .join("\n"),
                     style: TextStyle(color: Colors.white),
                   ),
                   SizedBox(height: 31),
                   Text(
                     '6 Easy Step',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: AppColors.mainpink),
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.mainpink,
+                    ),
                   ),
                   SizedBox(height: 11),
                   Column(

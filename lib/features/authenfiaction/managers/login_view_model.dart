@@ -15,29 +15,24 @@ class LoginViewModel extends ChangeNotifier {
   Future<bool> login(String login, String password) async {
     isLoading = true;
     error = null;
-    token = null;
+    bool success = false;
+
     notifyListeners();
     final result = await _authRepo.login(
       LoginModel(login: login, password: password),
     );
 
-    bool success = false;
+  return  result.fold((e) {
 
-    result.fold(
-      (e) {
-        error = "Xatolik: $e";
-      },
-      (data) {
-        if (data["accessToken"] != null &&
-            data["accessToken"].toString().isNotEmpty) {
-          token = data["accessToken"];
-          success = true;
-        } else {
-          error = "Token kelmadi";
-        }
-      },
-    );
 
+      error = e.toString();
+      return false;
+    }, (data) {
+
+    success=true;
+    return true;
+  },
+  );
     isLoading = false;
     notifyListeners();
 

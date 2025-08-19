@@ -13,13 +13,15 @@ import 'package:lesson2_10/features/onboarding/pages/levels_page.dart';
 import 'package:lesson2_10/features/onboarding/pages/onboarding3_page.dart';
 import 'package:lesson2_10/features/onboarding/pages/onboarding_page1.dart';
 import 'package:lesson2_10/features/onboarding/pages/page_view.dart';
+import 'package:lesson2_10/features/review/page/review_page.dart';
+import 'package:lesson2_10/features/trending_recipe/pages/trending_page.dart';
 
 import '../../features/categories/pages/recipilunch.dart';
 import '../../features/onboarding/pages/onboarding_page2.dart';
 
 class RouterClass {
-  final GoRouter router = GoRouter(
-    initialLocation: RouterName.login,
+  final  router = GoRouter(
+    initialLocation: RouterName.categorysourse,
     routes: [
       GoRoute(
         path: RouterName.categorysourse,
@@ -87,7 +89,11 @@ class RouterClass {
       GoRoute(path: RouterName.login,builder: (context,state)=>LoginPage()),
       GoRoute(path: RouterName.signup,builder: (context,state)=>SignUpPage()),
 
+GoRoute(path: RouterName.trending,builder: (context,state)=>TrendingPage()),
 
+      GoRoute(path: RouterName.review,
+      builder: (context,state)=>ReviewPage()
+      )
     ],
   );
 }

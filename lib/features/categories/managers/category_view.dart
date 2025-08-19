@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:lesson2_10/data/models/categorymodels/sourse_model.dart';
-import 'package:lesson2_10/data/result.dart';
 
 import '../../../core/clients/dio_cielent.dart';
+import '../../../data/models/categorymodels/sourse_model.dart';
 
 class CategoryView extends ChangeNotifier {
-  final ApiClient apiClient = ApiClient();
+  final ApiClient _apiClient;
+  bool _disposed = false;
 
-  CategoryView() {
+  CategoryView({required ApiClient apiClient}) : _apiClient = apiClient {
     getCategory();
   }
 
@@ -19,27 +19,33 @@ class CategoryView extends ChangeNotifier {
     isLoading = true;
     error = null;
     notifyListeners();
-
-    final result = await apiClient.get<dynamic>(
-      "/admin/categories/list",
-    );
+print("Sorovdan oldin");
+    final result = await _apiClient.get<dynamic>("/admin/categories/list");
 
     result.fold(
           (e) {
+            print("Xatolik $e");
         error = "Xatolik: $e";
       },
           (data) {
+            print("Success $data");
         try {
           categories = (data as List)
               .map((x) => SourseModel.fromJson(x))
               .toList();
         } catch (e) {
-          error = "Ma'lumotlarni parse qilishda xato: $e";
+          error = "Parse qilishda xato: $e";
         }
       },
     );
 
     isLoading = false;
-    notifyListeners();
+    if (!_disposed) notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
   }
 }

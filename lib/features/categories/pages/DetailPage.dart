@@ -59,13 +59,8 @@ class CategoryDetailPagee extends StatelessWidget {
                         num.tryParse(recipe.textstar.toString()) ?? 0;
                     final encodedTitle = Uri.encodeComponent(recipe.textname);
 
-                    context.pushNamed(
-                      'CategoryRecipe',
-                      pathParameters: {
-                        'id': recipeId.toString(),
-                        'title': encodedTitle,
-                        'rating': rating.toString(),
-                      },
+                    context.push(
+                      "/recipe/${recipe.id}/${recipe.textname}/${recipe.textstar}",
                     );
                   },
 

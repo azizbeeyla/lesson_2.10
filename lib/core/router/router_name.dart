@@ -14,4 +14,6 @@ class RouterName{
   static String signup=("/signup");
   static String forgotPassword=("/forgot");
   static String sendcode=("/sendcode");
+  static String trending=("/trending");
+  static String review=("/review");
 }

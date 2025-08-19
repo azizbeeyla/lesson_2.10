@@ -11,7 +11,7 @@ class Categorysourse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => CategoryView()..getCategory(),
+      create: (context) => CategoryView(apiClient: context.read()),
       child: Scaffold(
         backgroundColor: AppColors.baige,
         appBar: AppbarcusToms(

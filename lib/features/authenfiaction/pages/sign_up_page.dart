@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:lesson2_10/core/utils/app_colors.dart';
 import 'package:lesson2_10/features/authenfiaction/common/continue_button.dart';
 import 'package:lesson2_10/features/authenfiaction/widgets/recipe_text.dart';
@@ -163,6 +164,8 @@ class _SignUpPageState extends State<SignUpPage> {
 
                           vm.register(model).then((_) {
                             if (vm.success) {
+                              final preferences=FlutterSecureStorage();
+
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(
                                 const SnackBar(

@@ -1,26 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:lesson2_10/core/clients/dio_cielent.dart';
 import 'package:lesson2_10/data/repositry/login_repositiry.dart';
 import 'package:lesson2_10/data/repositry/sign_up_repostriy.dart';
 import 'package:lesson2_10/features/authenfiaction/managers/sign_up_viewmodel.dart';
 import 'package:provider/provider.dart';
 import 'core/router/router_class.dart';
+import 'data/repositry/trending_repostries.dart';
 import 'features/authenfiaction/managers/login_view_model.dart';
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
+        Provider(create: (context)=>FlutterSecureStorage()),
+        // Api client
         Provider(create: (context) => ApiClient()),
+
+        // Auth repositories
         Provider(
           create: (context) =>
-              AuthRepository(apiClient: context.read<ApiClient>()),
+              AuthRepository(apiClient: context.read<ApiClient>(), secureStorage: context.read()),
         ),
         Provider(
           create: (context) =>
               SignUpRepository(apiClient: context.read<ApiClient>()),
         ),
+
+        Provider(
+          create: (context) =>
+              TrendRecipesRepository(apiClient: context.read<ApiClient>()),
+        ),
+
         ChangeNotifierProvider<LoginViewModel>(
           create: (context) => LoginViewModel(
             authRepo: context.read<AuthRepository>(),

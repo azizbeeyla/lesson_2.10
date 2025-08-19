@@ -71,23 +71,13 @@ class _LoginPageState extends State<LoginPage> {
                         : RecipeButton(
                       backgroundColor: AppColors.pinkorig,
                       text: "Log In",
-                      onPressed: () async {
-                        final success = await vm.login(
-                          emailController.text,
-                          passwordController.text,
-                        );
+                      onPressed: ()async{
 
-                        if (success) {
-                          context.push(RouterName.categorysourse);
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                vm.error ?? "Login xatolik",
-                              ),
-                            ),
-                          );
-                        }
+                     final result=await  vm.login(emailController.text, passwordController.text);
+                     if (result) {
+                       context.go(RouterName.categorysourse);
+
+                     }
                       },
         textcolor: AppColors.pink,
 

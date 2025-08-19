@@ -1,32 +1,27 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:lesson2_10/data/result.dart';
 import '../../core/clients/dio_cielent.dart';
 import '../models/authefincation_models/login_model.dart';
 
 class AuthRepository {
-  final ApiClient apiClient;
+  final ApiClient _apiClient;
+  final FlutterSecureStorage _secureStorage;
 
-  AuthRepository({required this.apiClient});
-
-
+  AuthRepository({
+    required ApiClient apiClient,
+    required FlutterSecureStorage secureStorage,
+  }) : _apiClient = apiClient,
+       _secureStorage = secureStorage;
 
   Future<Result<Map<String, dynamic>>> login(LoginModel model) async {
-    final result = await apiClient.post(
+    final result = await _apiClient.post(
       "/auth/login",
       data: model.toJson(),
     );
 
-    return result.fold(
-          (err) => Result.error(err),
-          (data) {
-        if (data is Map<String, dynamic>) {
-          if (data["accessToken"] != null && data["accessToken"].toString().isNotEmpty) {
-            return Result.ok(data);
-          } else {
-            return Result.error(Exception("Token kelmadi"));
-          }
-        }
-        return Result.error(Exception("Xato"));
-      },
-    );
+    return result.fold((error) => Result.error(error), (value) {
+      _secureStorage.write(key: "token", value: value['accessToken']);
+      return Result.ok(value['accessToken']);
+    });
   }
 }
