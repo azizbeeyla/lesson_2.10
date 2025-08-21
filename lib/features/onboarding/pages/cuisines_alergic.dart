@@ -15,7 +15,7 @@ class CuisinesAlergic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => AllergicView(),
+      create: (context) => AllergicView(apiClient: context.read()),
       child: Scaffold(
         extendBody: true,
         backgroundColor: AppColors.baige,

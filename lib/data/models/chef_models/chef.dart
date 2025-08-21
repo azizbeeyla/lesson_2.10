@@ -19,7 +19,7 @@ class ChefModel {
       firstName: json['firstName'] ?? "",
       lastName: json['lastName'] ?? "",
       username: json['username'] ?? "",
-      profilePhoto: json['profilePhoto'],
+      profilePhoto: json['profilePhoto']??"",
     );
   }
 }

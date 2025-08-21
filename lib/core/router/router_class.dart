@@ -14,6 +14,8 @@ import 'package:lesson2_10/features/onboarding/pages/onboarding3_page.dart';
 import 'package:lesson2_10/features/onboarding/pages/onboarding_page1.dart';
 import 'package:lesson2_10/features/onboarding/pages/page_view.dart';
 import 'package:lesson2_10/features/review/page/review_page.dart';
+import 'package:lesson2_10/features/topchefs/pages/top_chefs_detail.dart';
+import 'package:lesson2_10/features/topchefs/pages/top_chefs_page.dart';
 import 'package:lesson2_10/features/trending_recipe/pages/trending_page.dart';
 
 import '../../features/categories/pages/recipilunch.dart';
@@ -21,7 +23,7 @@ import '../../features/onboarding/pages/onboarding_page2.dart';
 
 class RouterClass {
   final  router = GoRouter(
-    initialLocation: RouterName.categorysourse,
+    initialLocation: RouterName.topchefs,
     routes: [
       GoRoute(
         path: RouterName.categorysourse,
@@ -93,7 +95,9 @@ GoRoute(path: RouterName.trending,builder: (context,state)=>TrendingPage()),
 
       GoRoute(path: RouterName.review,
       builder: (context,state)=>ReviewPage()
-      )
+      ),
+      GoRoute(path: RouterName.topchefsDetail,builder: (context,state)=>TopChefsDetail()),
+      GoRoute(path: RouterName.topchefs,builder: (context,state)=>TopChefPage())
     ],
   );
 }

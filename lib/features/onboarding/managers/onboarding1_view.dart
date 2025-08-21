@@ -5,9 +5,9 @@ import '../../../data/models/onboardingmodels/onboarding_model.dart';
 import '../../../data/result.dart';
 
 class OnBoardingViewModel extends ChangeNotifier {
-  final ApiClient apiClient = ApiClient();
+  final ApiClient _apiClient;
 
-  OnBoardingViewModel(int id) {
+  OnBoardingViewModel({ id,required ApiClient apiClient}):_apiClient=apiClient {
     getImage(id);
   }
 
@@ -20,7 +20,7 @@ class OnBoardingViewModel extends ChangeNotifier {
     error = null;
     notifyListeners();
 
-    final result = await apiClient.get<dynamic>(
+    final result = await _apiClient.get<dynamic>(
       "/onboarding/list",
     );
 

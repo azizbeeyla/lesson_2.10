@@ -22,7 +22,7 @@ class CategoryDetailPagee extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<CategoryDetailViewModel>(
-      create: (context) => CategoryDetailViewModel()..fetchRecipes(categoryId),
+      create: (context) => CategoryDetailViewModel(apiClient: context.read())..fetchRecipes(categoryId),
       child: Consumer<CategoryDetailViewModel>(
         builder: (context, viewModel, child) {
           if (viewModel.isLoading) {

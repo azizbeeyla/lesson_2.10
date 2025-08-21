@@ -5,9 +5,9 @@ import 'package:lesson2_10/data/models/onboardingmodels/cusines_model.dart';
 import '../../../core/clients/dio_cielent.dart';
 
 class CusinessView extends ChangeNotifier {
-  final ApiClient apiClient = ApiClient();
+  final ApiClient _apiClient;
 
-  CusinessView() {
+  CusinessView({required ApiClient apiClient} ):_apiClient=apiClient {
     getCuisines();
   }
 
@@ -20,7 +20,7 @@ class CusinessView extends ChangeNotifier {
     error = null;
     notifyListeners();
 
-    final result = await apiClient.get<dynamic>(
+    final result = await _apiClient.get<dynamic>(
       "/cuisines/list",
     );
 

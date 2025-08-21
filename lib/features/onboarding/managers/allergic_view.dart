@@ -5,9 +5,9 @@ import 'package:lesson2_10/data/models/onboardingmodels/cuisines_alergicmodel.da
 import '../../../core/clients/dio_cielent.dart';
 
 class AllergicView extends ChangeNotifier {
-  final ApiClient apiClient = ApiClient();
+  final ApiClient _apiClient;
 
-  AllergicView() {
+  AllergicView({required ApiClient apiClient}):_apiClient=apiClient {
     getAllergic();
   }
 
@@ -20,7 +20,7 @@ class AllergicView extends ChangeNotifier {
     error = null;
     notifyListeners();
 
-    final result = await apiClient.get<dynamic>(
+    final result = await _apiClient.get<dynamic>(
       "/allergic/list",
     );
 

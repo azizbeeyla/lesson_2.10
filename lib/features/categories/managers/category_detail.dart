@@ -5,18 +5,20 @@ import '../../../core/clients/dio_cielent.dart';
 import '../../../data/result.dart'; // Result joylashgan fayl
 
 class CategoryDetailViewModel extends ChangeNotifier {
-  final ApiClient apiClient = ApiClient();
+  final ApiClient _apiClient;
 
   List<DetailModel> recipes = [];
   bool isLoading = false;
   String? error;
+
+  CategoryDetailViewModel({required ApiClient apiClient}):_apiClient=apiClient;
 
   Future<void> fetchRecipes(num categoryId) async {
     isLoading = true;
     error = null;
     notifyListeners();
 
-    final result = await apiClient.get<dynamic>(
+    final result = await _apiClient.get<dynamic>(
       '/recipes/list',
       queryParams: {"Category": categoryId},
     );

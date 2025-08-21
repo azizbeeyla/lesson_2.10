@@ -21,6 +21,8 @@ class AuthRepository {
 
     return result.fold((error) => Result.error(error), (value) {
       _secureStorage.write(key: "token", value: value['accessToken']);
+      _secureStorage.write(key: "login", value: value[model.login]);
+      _secureStorage.write(key: "password", value: value[model.password]);
       return Result.ok(value['accessToken']);
     });
   }

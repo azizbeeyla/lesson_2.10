@@ -16,7 +16,7 @@ class CusinesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => CusinessView(),
+      create: (context) => CusinessView(apiClient: context.read()),
       child: Scaffold(
         backgroundColor: AppColors.baige,
         appBar: AppBar(

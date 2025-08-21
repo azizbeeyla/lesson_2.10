@@ -3,6 +3,7 @@ import 'package:lesson2_10/data/repositry/trending_repostries.dart';
 import 'package:lesson2_10/features/trending_recipe/widgets/trending_detail.dart';
 import '../../../data/models/trending_models/most_viewed.dart';
 import '../../../core/clients/dio_cielent.dart';
+import '../../../data/models/trending_models/recipies_detail.dart';
 import '../../../data/result.dart';
 
 class MostViewedViewModel extends ChangeNotifier {
@@ -10,9 +11,9 @@ class MostViewedViewModel extends ChangeNotifier {
   final TrendRecipesRepository _detailRepo;
 
   bool isLoading = false;
-  bool isDetailLoad=false;
+  bool isDetailLoad = false;
   String? detailError;
-  List<TrendingDetail> details=[];
+  List<TrendRecipesDetail> details = [];
   String? error;
   MostViewedModel? mostViewed;
 
@@ -31,11 +32,11 @@ class MostViewedViewModel extends ChangeNotifier {
       final result = await apiClient.get("/recipes/trending-recipe");
 
       result.fold(
-            (err) {
+        (err) {
           error = err.toString();
           success = false;
         },
-            (data) {
+        (data) {
           if (data is Map<String, dynamic>) {
             mostViewed = MostViewedModel.fromJson(data);
             success = true;
@@ -54,6 +55,7 @@ class MostViewedViewModel extends ChangeNotifier {
     notifyListeners();
     return success;
   }
+
   Future<void> fetchTrendRecipes({int limit = 3}) async {
     isLoading = true;
     detailError = null;
@@ -62,18 +64,15 @@ class MostViewedViewModel extends ChangeNotifier {
     final result = await _detailRepo.getTrendRecipes(limit: limit);
 
     result.fold(
-          (err) {
+      (err) {
         detailError = err.toString();
       },
-          (data) {
-        details = data.cast<TrendingDetail>();
+      (data) {
+        details = data;
       },
     );
 
-    isDetailLoad =  false;
+    isDetailLoad = false;
     notifyListeners();
   }
 }
-
-
-

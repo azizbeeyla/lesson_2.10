@@ -57,6 +57,7 @@ class MostViewedBottom extends StatelessWidget {
                 width: 264.w,
                 child: Text(
                   description,
+                  maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: AppColors.textcolor,

@@ -16,7 +16,7 @@ class OnboardingPage2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => OnBoardingViewModel(2),
+      create: (context) => OnBoardingViewModel( apiClient: context.read()),
 
       child: Scaffold(
         extendBody: true,
