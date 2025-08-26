@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lesson2_10/features/categories/widgets/Navigators.dart';
-import 'package:lesson2_10/features/topchefs/widgets/most_viewed_chefs.dart';
+import 'package:lesson2_10/features/topchefs/widgets/most_liked_chefs.dart';
 import 'package:lesson2_10/features/topchefs/widgets/top_viewed_chef.dart';
 import 'package:provider/provider.dart';
 import 'package:lesson2_10/core/utils/app_colors.dart';
 
+import '../../../core/utils/apptheme_provider.dart';
 import '../../appbars/appbarcus_toms.dart';
 import '../managers/top_chefs_viewmodel.dart';
 
@@ -25,7 +26,6 @@ class TopChefPage extends StatelessWidget {
             ..fetchTopChefs(limit: 2, page: 3),
       child: Scaffold(
         extendBody: true,
-        backgroundColor: AppColors.baige,
         appBar: AppbarcusToms(
           icon: 'assets/back.svg',
           title: "Top Chefs",
@@ -47,7 +47,7 @@ class TopChefPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                 MostViewedChefs(),
+                  MostViewedChefs(),
                   SizedBox(height: 20),
 
                   Padding(
@@ -57,53 +57,72 @@ class TopChefPage extends StatelessWidget {
                       children: [
                         Text(
                           "Most Liked Chefs",
-                          style: TextStyle(color: AppColors.mainpink, fontSize: 15.sp,fontWeight: FontWeight.w500),
-                        ),
-
-
-                    SizedBox(height: 9.h,),
-                    Row(
-                      children: List.generate(
-                        vm.chefsTwo.length,
-                        (index) => Padding(
-                          padding: const EdgeInsets.only(right: 18.0),
-                          child: MostLikedChefs(
-                            vm: vm.chefsTwo,
-                            index: index,
+                          style: TextStyle(
+                            color: AppColors.mainpink,
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
 
-                    Text(
-                      "Top Rated Chefs",
-                      style: TextStyle(
-                        color: AppColors.mainpink,
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    SizedBox(height: 9.h,),
-                    Row(
-                      children: List.generate(
-                        vm.chefsThree.length,
-                        (index) =>
-                            Padding(
+                        SizedBox(
+                          height: 9.h,
+                        ),
+                        Row(
+                          children: List.generate(
+                            vm.chefsTwo.length,
+                            (index) => Padding(
                               padding: const EdgeInsets.only(right: 18.0),
-                              child: MostLikedChefs(vm: vm.chefsThree, index: index),
+                              child: MostLikedChefs(
+                                vm: vm.chefsTwo,
+                                index: index,
+                              ),
                             ),
-                      ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+
+                        Text(
+                          "Top Rated Chefs",
+                          style: TextStyle(
+                            color: AppColors.mainpink,
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 9.h,
+                        ),
+                        Row(
+                          children: List.generate(
+                            vm.chefsThree.length,
+                            (index) => Padding(
+                              padding: const EdgeInsets.only(right: 18.0),
+                              child: MostLikedChefs(
+                                vm: vm.chefsThree,
+                                index: index,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    ]),
-                  )
+                  ),
                 ],
               ),
             );
-
           },
         ),
         bottomNavigationBar: Navigations(),
+
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+context.read<AppthemeProvider>().toggleTheme();
+          },
+          child: Text(
+            'theme',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
       ),
     );
   }

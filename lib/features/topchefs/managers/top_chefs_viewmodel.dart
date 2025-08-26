@@ -21,7 +21,7 @@ class TopChefsViewModel extends ChangeNotifier {
   })  : _chefsRepo = chefsRepo,
         _apiClient = apiClient;
 
-  Future<void> fetchTopChefs({int limit = 5, int page = 1}) async {
+  Future<void> fetchTopChefs({int limit = 4, int page = 1}) async {
     isLoading = true;
     error = null;
     notifyListeners();

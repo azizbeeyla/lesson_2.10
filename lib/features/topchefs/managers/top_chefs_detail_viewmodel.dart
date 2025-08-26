@@ -1,37 +1,35 @@
-import 'package:flutter/material.dart';
-import 'package:lesson2_10/core/clients/dio_cielent.dart';
-import 'package:lesson2_10/data/models/topchefs/top_chefs_detail.dart';
-
+import 'package:flutter/cupertino.dart';
+import '../../../data/models/topchefs/top_chefs_detail.dart';
 import '../../../data/repositry/topchefs/top_chefs_detaiil.dart';
 
 class TopChefDetailViewModel extends ChangeNotifier {
-  final TopChefDetailRepository _detailRepo;
-final ApiClient _apiClient;
-  bool isLoading = false;
-  String? error;
-  TopChefsDetailModel? chefDetail;
+  TopChefDetailViewModel({required TopChefDetailRepository repository, required int id})
+      : _repository = repository {
+    fetchTopChefDetail(id);
+  }
 
-  TopChefDetailViewModel({
-    required ApiClient apiClient,required TopChefDetailRepository detailRepo ,
-  }) : _apiClient=apiClient,_detailRepo=detailRepo;
+  final TopChefDetailRepository _repository;
+
+  TopChefsDetailModel? chefDetail;
+  bool loading = false;
+  String? errorMessage;
 
   Future<void> fetchTopChefDetail(int id) async {
-    isLoading = true;
-    error = null;
+    loading = true;
+    errorMessage = null;
     notifyListeners();
 
-    final result = await _detailRepo.getTopChefDetail(id);
+    try {
+      final result = await _repository.getTopChefDetail(id);
+      result.fold(
+            (err) => errorMessage = err.toString(),
+            (data) => chefDetail = data,
+      );
+    } catch (e) {
+      errorMessage = e.toString();
+    }
 
-    result.fold(
-          (err) {
-        error = err.toString();
-      },
-          (data) {
-        chefDetail = data;
-      },
-    );
-
-    isLoading = false;
+    loading = false;
     notifyListeners();
   }
 }

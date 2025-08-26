@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import '../../core/utils/app_colors.dart';
 
 class AppbarcusToms extends StatelessWidget implements PreferredSizeWidget {
@@ -7,15 +8,17 @@ class AppbarcusToms extends StatelessWidget implements PreferredSizeWidget {
   String iconaction1, iconaction2;
   final String title;
   final Color background, foreground;
-
+  final VoidCallback? onAction1Pressed;
+  final VoidCallback? onAction2Pressed;
    AppbarcusToms({
     super.key,
+
     required this.icon,
     required this.iconaction1,
     required this.iconaction2,
     required this.title,
     required this.background,
-    required this.foreground,
+    required this.foreground, this.onAction1Pressed, this.onAction2Pressed,
   });
 
   @override
@@ -31,7 +34,9 @@ class AppbarcusToms extends StatelessWidget implements PreferredSizeWidget {
             backgroundColor: Colors.transparent,
             foregroundColor: foreground,
           ),
-          onPressed: () {},
+          onPressed: () {
+            context.pop();
+          },
           icon: SvgPicture.asset(icon),
         ),
       ),
@@ -53,7 +58,7 @@ class AppbarcusToms extends StatelessWidget implements PreferredSizeWidget {
           ),
           padding: EdgeInsets.zero,
 
-          onPressed: () {},
+          onPressed: onAction1Pressed,
           icon: SvgPicture.asset(
             iconaction1,
           ),
@@ -69,7 +74,7 @@ class AppbarcusToms extends StatelessWidget implements PreferredSizeWidget {
             ),
             padding: EdgeInsets.zero,
 
-            onPressed: () {},
+            onPressed: onAction2Pressed,
             icon: SvgPicture.asset(
               iconaction2,
             ),

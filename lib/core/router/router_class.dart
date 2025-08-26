@@ -7,6 +7,7 @@ import 'package:lesson2_10/features/authenfiaction/pages/send_code_page.dart';
 import 'package:lesson2_10/features/authenfiaction/pages/sign_up_page.dart';
 import 'package:lesson2_10/features/categories/pages/CategorySourse.dart';
 import 'package:lesson2_10/features/categories/pages/DetailPage.dart';
+import 'package:lesson2_10/features/community/pages/community_page.dart';
 import 'package:lesson2_10/features/onboarding/pages/cuisines_alergic.dart';
 import 'package:lesson2_10/features/onboarding/pages/cusiness_page.dart';
 import 'package:lesson2_10/features/onboarding/pages/levels_page.dart';
@@ -20,10 +21,11 @@ import 'package:lesson2_10/features/trending_recipe/pages/trending_page.dart';
 
 import '../../features/categories/pages/recipilunch.dart';
 import '../../features/onboarding/pages/onboarding_page2.dart';
+import '../../features/review/page/review_add_page.dart';
 
 class RouterClass {
-  final  router = GoRouter(
-    initialLocation: RouterName.topchefs,
+  final router = GoRouter(
+    initialLocation: RouterName.community,
     routes: [
       GoRoute(
         path: RouterName.categorysourse,
@@ -80,24 +82,56 @@ class RouterClass {
         path: RouterName.onboarding3,
         builder: (context, state) => OnboardingPage3(),
       ),
-      GoRoute(path: RouterName.pageview,
-      builder: (context,state)=>OnboardingScreen()
+      GoRoute(
+        path: RouterName.pageview,
+        builder: (context, state) => OnboardingScreen(),
       ),
-      GoRoute(path: RouterName.forgotPassword,
-      builder: (context,state)=>ForgotPasswordPage(),
+      GoRoute(
+        path: RouterName.forgotPassword,
+        builder: (context, state) => ForgotPasswordPage(),
       ),
-      GoRoute(path: RouterName.sendcode,builder: (context,state)=>SendCodePage()),
-
-      GoRoute(path: RouterName.login,builder: (context,state)=>LoginPage()),
-      GoRoute(path: RouterName.signup,builder: (context,state)=>SignUpPage()),
-
-GoRoute(path: RouterName.trending,builder: (context,state)=>TrendingPage()),
-
-      GoRoute(path: RouterName.review,
-      builder: (context,state)=>ReviewPage()
+      GoRoute(
+        path: RouterName.sendcode,
+        builder: (context, state) => SendCodePage(),
       ),
-      GoRoute(path: RouterName.topchefsDetail,builder: (context,state)=>TopChefsDetail()),
-      GoRoute(path: RouterName.topchefs,builder: (context,state)=>TopChefPage())
+
+      GoRoute(path: RouterName.login, builder: (context, state) => LoginPage()),
+      GoRoute(
+        path: RouterName.signup,
+        builder: (context, state) => SignUpPage(),
+      ),
+
+      GoRoute(
+        path: RouterName.trending,
+        builder: (context, state) => TrendingPage(),
+      ),
+
+      GoRoute(
+        path: RouterName.review,
+        builder: (context, state) => ReviewPage(
+          categoriyId: (state.extra as Map)["categoriyId"],
+        ),
+      ),
+      GoRoute(
+        path: RouterName.topchefsDetail,
+        builder: (context, state) =>
+            TopChefsDetail(id: (state.extra as Map)["id"]),
+      ),
+      GoRoute(
+        path: RouterName.topchefs,
+        builder: (context, state) => TopChefPage(),
+      ),
+
+      GoRoute(
+        path: RouterName.community,
+        builder: (context, state) => CommunityPage(),
+      ),
+      GoRoute(
+        path: RouterName.reviewAdd,
+        builder: (context, state) => ReviewAddPage(
+          categoriyId: (state.extra as Map)["categoriyId"],
+        ),
+      ),
     ],
   );
 }

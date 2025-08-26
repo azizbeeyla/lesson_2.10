@@ -10,43 +10,57 @@ class AuthInterceptor extends Interceptor {
 
   final dio = Dio(
     BaseOptions(
-      baseUrl: "http://192.168.9.6:8888/api/v1",
+      baseUrl: "http://192.168.0.108:8888/api/v1",
       validateStatus: (status) => true,
     ),
   );
 
   @override
   void onRequest(
-    RequestOptions options,
-    RequestInterceptorHandler handler,
-  ) async {
+      RequestOptions options,
+      RequestInterceptorHandler handler,
+      ) async {
+    // Tokenni qo‘shish
     var token = await secureStorage.read(key: 'token');
     if (token != null) {
-      options.headers['Authorizations'] = "Bearer$token";
-
-      print("Request junatildi");
+      options.headers['Authorization'] = "Bearer $token";
+      print("Request yuborildi, token qo‘shildi");
     }
-
-    super.onRequest(options, handler);
+    handler.next(options);
   }
 
   @override
-  void onResponse(Response response, ResponseInterceptorHandler handler) async {
+  void onResponse(
+      Response response,
+      ResponseInterceptorHandler handler,
+      ) async {
+
     if (response.statusCode == 401) {
       var login = await secureStorage.read(key: "login");
       var password = await secureStorage.read(key: "password");
-      if (login == null || password == null) await logout();
 
+      if (login == null || password == null) {
+        await logout();
+        return;
+      }
+
+      // Tokenni yangilash
       var result = await dio.post(
         "/auth/login",
         data: {"login": login, "password": password},
       );
+
       String? token = result.data['accessToken'];
-      if (result.statusCode != 200 || token == null) await logout();
-      
+
+      if (result.statusCode != 200 || token == null) {
+        await logout();
+        return;
+      }
+
       await secureStorage.write(key: "token", value: token);
-      final headers =response.requestOptions.headers;
-      headers["Authorization"]="Bearer $token";
+
+      final headers = response.requestOptions.headers;
+      headers["Authorization"] = "Bearer $token";
 
       var retry = await dio.fetch(
         RequestOptions(
@@ -57,20 +71,24 @@ class AuthInterceptor extends Interceptor {
           headers: headers,
         ),
       );
-      if (retry.statusCode != 200) await logout();
-      super.onResponse(retry, handler);
-    } else {
-      super.onResponse(response, handler);
-    }
 
-    print("Response Kedi");
-    super.onResponse(response, handler);
+      if (retry.statusCode != 200) {
+        await logout();
+        return;
+      }
+
+      print("Response qayta yuborildi va muvaffaqiyatli bo‘ldi");
+      handler.next(retry);
+    } else {
+      print("Response muvaffaqiyatli");
+      handler.next(response);
+    }
   }
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
-    print("Error chiqdi");
-    super.onError(err, handler);
+    print("Error chiqdi: ${err.message}");
+    handler.next(err);
   }
 
   Future<void> logout() async {
@@ -78,6 +96,5 @@ class AuthInterceptor extends Interceptor {
     await secureStorage.delete(key: "login");
     await secureStorage.delete(key: "password");
     RouterClass().router.go(RouterName.login);
-    return;
   }
 }

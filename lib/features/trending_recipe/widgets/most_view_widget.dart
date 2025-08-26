@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:lesson2_10/core/router/router_name.dart';
 import 'package:lesson2_10/data/models/trending_models/most_viewed.dart';
 import 'package:provider/provider.dart';
 
@@ -41,62 +43,67 @@ class _MostViewedWidgetState extends State<MostViewedWidget> {
 
         final recipe = vm.mostViewed!;
 
-        return SizedBox(
-          width: 358.w,
-          height: 182.h,
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  width: 348.w,
-                  height: 53.h,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(14),
-                      bottomRight: Radius.circular(14),
+        return GestureDetector(
+          onTap: (){
+            context.push("/recipe/${recipe.id}/${recipe.title}/${recipe.rating}",);
+          },
+          child: SizedBox(
+            width: 358.w,
+            height: 182.h,
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    width: 348.w,
+                    height: 53.h,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(14),
+                        bottomRight: Radius.circular(14),
+                      ),
                     ),
-                  ),
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: MostViewedBottom(
-                        title: recipe.title,
-                        description: recipe.description,
-                        timeRequired: recipe.timeRequired,
-                        rating: recipe.rating,
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: MostViewedBottom(
+                          title: recipe.title,
+                          description: recipe.description,
+                          timeRequired: recipe.timeRequired,
+                          rating: recipe.rating,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              Align(
-                alignment: Alignment.topCenter,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(14),
-                  child: Image.network(
-                    recipe.photo,
-                    width: 358.w,
-                    height: 143.h,
-                    fit: BoxFit.cover,
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(14),
+                    child: Image.network(
+                      recipe.photo,
+                      width: 358.w,
+                      height: 143.h,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-              ),
-              Positioned(
-                right: 12,
-                top: 8,
-                child: LikeButton(
-                  isSelected: isSelected,
-                  onPressed: () {
-                    setState(() {
-                      isSelected = !isSelected;
-                    });
-                  },
+                Positioned(
+                  right: 12,
+                  top: 8,
+                  child: LikeButton(
+                    isSelected: isSelected,
+                    onPressed: () {
+                      setState(() {
+                        isSelected = !isSelected;
+                      });
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },

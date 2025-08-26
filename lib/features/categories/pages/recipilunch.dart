@@ -88,13 +88,13 @@ class CategoryDetailsRecipe extends StatelessWidget {
                                       size: 12,
                                     ),
                                     onTap: () {
-                                      context.push(RouterName.review);
+                                      context.push(RouterName.review,extra:{ "categoriyId":recipeId});
                                     },
                                   ),
                                   Text(
                                     "${recipe.textstar}",
                                     style: TextStyle(
-                                      fontSize: 12,
+                                      fontSize: 14,
                                       color: Colors.white,
                                     ),
                                   ),
@@ -106,13 +106,13 @@ class CategoryDetailsRecipe extends StatelessWidget {
                                       size: 12,
                                     ),
                                     onTap: (){
-                                      context.push(RouterName.review);
+                                      context.push(RouterName.review,extra: {'categoriyId':recipeId});
                                     },
                                   ),
                                   Text(
                                     "${recipe.comments ?? 0}",
                                     style: TextStyle(
-                                      fontSize: 12,
+                                      fontSize: 14,
                                       color: Colors.white,
                                     ),
                                   ),

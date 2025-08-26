@@ -16,6 +16,8 @@ class RouterName{
   static String sendcode=("/sendcode");
   static String trending=("/trending");
   static String review=("/review");
+  static String reviewAdd=("/reviewAdd");
   static String topchefs=("/topchefs");
   static String topchefsDetail=("/chefsDetail");
+  static String community=("/community");
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lesson2_10/features/topchefs/widgets/most_viewed_chefs.dart';
+import 'package:lesson2_10/features/topchefs/widgets/most_liked_chefs.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/utils/app_colors.dart';
