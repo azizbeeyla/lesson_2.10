@@ -20,4 +20,5 @@ class RouterName{
   static String topchefs=("/topchefs");
   static String topchefsDetail=("/chefsDetail");
   static String community=("/community");
+  static String splash=("/splash");
 }

@@ -5,6 +5,7 @@ import 'package:lesson2_10/features/authenfiaction/pages/forgot_password_page.da
 import 'package:lesson2_10/features/authenfiaction/pages/login_page.dart';
 import 'package:lesson2_10/features/authenfiaction/pages/send_code_page.dart';
 import 'package:lesson2_10/features/authenfiaction/pages/sign_up_page.dart';
+import 'package:lesson2_10/features/authenfiaction/pages/splash_page.dart';
 import 'package:lesson2_10/features/categories/pages/CategorySourse.dart';
 import 'package:lesson2_10/features/categories/pages/DetailPage.dart';
 import 'package:lesson2_10/features/community/pages/community_page.dart';
@@ -25,7 +26,7 @@ import '../../features/review/page/review_add_page.dart';
 
 class RouterClass {
   final router = GoRouter(
-    initialLocation: RouterName.community,
+    initialLocation: RouterName.splash,
     routes: [
       GoRoute(
         path: RouterName.categorysourse,
@@ -132,6 +133,7 @@ class RouterClass {
           categoriyId: (state.extra as Map)["categoriyId"],
         ),
       ),
+      GoRoute(path: RouterName.splash,builder: (context,state)=>SplashPage())
     ],
   );
 }

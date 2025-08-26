@@ -14,33 +14,27 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  Future<bool>isRegestered()async {
-    final preferences = FlutterSecureStorage();
-    if (await preferences.read(key: "token") != null) {
-      return true;
+  final _secureStorage = const FlutterSecureStorage();
+
+  Future<void> _checkRegistration() async {
+    await Future.delayed(const Duration(seconds: 3));
+
+    final token = await _secureStorage.read(key: "token");
+
+    if (!mounted) return;
+
+    if (token != null && token.isNotEmpty) {
+      context.go(RouterName.categorysourse);
     } else {
-      return false;
+      context.go(RouterName.signup);
     }
   }
-    @override
+
+  @override
   void initState() {
-      super.initState();
-
-      isRegestered().then((value)async{
-      await Future.delayed(Duration(seconds: 5));
-
-      if (value) {
-        context.go(RouterName.categorysourse);
-
-      }  else{
-        context.go(RouterName.signup);
-      }
-
-    });
-
+    super.initState();
+    _checkRegistration();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -61,13 +55,12 @@ class _SplashPageState extends State<SplashPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SvgPicture.asset('assets/spoon.svg'),
-                  SizedBox(
-                    width: 12.78.w,
-                  ),
+                  SizedBox(width: 12.78.w),
                   SvgPicture.asset('assets/fork.svg'),
                 ],
               ),
             ),
+            SizedBox(height: 20.h),
             Text(
               "DishDash",
               style: TextStyle(

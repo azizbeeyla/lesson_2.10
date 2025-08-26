@@ -20,7 +20,6 @@ class AuthInterceptor extends Interceptor {
       RequestOptions options,
       RequestInterceptorHandler handler,
       ) async {
-    // Tokenni qo‘shish
     var token = await secureStorage.read(key: 'token');
     if (token != null) {
       options.headers['Authorization'] = "Bearer $token";
