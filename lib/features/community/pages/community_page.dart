@@ -63,38 +63,32 @@ class CommunityPage extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(36.w, 22.h, 36.w, 0),
-                child: Consumer<CommunityViewModel>(
-                  builder: (context, vm, child) => vm.isLoadingNew
-                      ? Center(
-                    child: CircularProgressIndicator(),
-                  )
-                      : SingleChildScrollView(
-                    child: Padding(
-                      padding: EdgeInsets.only(bottom: 126.h),
-                      child: RecipeCommunity(
-                        vm: vm.communityNew,
-                        viewModel: vm.formatTimeAgo,
-                      ),
+              Consumer<CommunityViewModel>(
+                builder: (context, vm, child) => vm.isLoadingNew
+                    ? Center(
+                  child: CircularProgressIndicator(),
+                )
+                    : SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: 126.h),
+                    child: RecipeCommunity(
+                      vm: vm.communityNew,
+                      viewModel: vm.formatTimeAgo,
                     ),
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(36.w, 22.h, 36.w, 0),
-                child: Consumer<CommunityViewModel>(
-                  builder: (context, vm, child) => vm.isLoadingOld
-                      ? Center(
-                    child: CircularProgressIndicator(),
-                  )
-                      : SingleChildScrollView(
-                    child: Padding(
-                      padding: EdgeInsets.only(bottom: 126.h),
-                      child: RecipeCommunity(
-                        vm: vm.communityOld,
-                        viewModel:vm.formatTimeAgo,
-                      ),
+              Consumer<CommunityViewModel>(
+                builder: (context, vm, child) => vm.isLoadingOld
+                    ? Center(
+                  child: CircularProgressIndicator(),
+                )
+                    : SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: 126.h),
+                    child: RecipeCommunity(
+                      vm: vm.communityOld,
+                      viewModel:vm.formatTimeAgo,
                     ),
                   ),
                 ),

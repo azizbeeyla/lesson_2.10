@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lesson2_10/core/utils/app_colors.dart';
-import 'package:lesson2_10/features/community/widgets/time_data.dart';
-
+import 'package:lesson2_10/features/trending_recipe/widgets/like_button.dart';
 import '../../../data/models/comunity_models/comunity_model.dart';
 
-class RecipeCommunity extends StatelessWidget {
+class RecipeCommunity extends StatefulWidget {
   final List<CommunityModel> vm;
   final Function viewModel;
 
@@ -17,16 +16,22 @@ class RecipeCommunity extends StatelessWidget {
   });
 
   @override
+  State<RecipeCommunity> createState() => _RecipeCommunityState();
+}
+
+class _RecipeCommunityState extends State<RecipeCommunity> {
+  bool isSelected = false;
+
+  @override
   Widget build(BuildContext context) {
     return Column(
-      children: List.generate(vm.length, (index) {
-        final item = vm[index];
+      children: List.generate(widget.vm.length, (index) {
+        final item = widget.vm[index];
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 37.0, vertical: 12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // USER INFO ROW
               Row(
                 children: [
                   ClipRRect(
@@ -46,12 +51,12 @@ class RecipeCommunity extends StatelessWidget {
                         "@${item.user.username}",
                         style: TextStyle(
                           color: AppColors.whiteText,
-                          fontSize: 25.sp,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
                       Text(
-                        viewModel(item.created), // vaqtni format qilish
+                        widget.viewModel(item.created),
                         style: TextStyle(
                           color: AppColors.pink,
                           fontWeight: FontWeight.w400,
@@ -64,10 +69,9 @@ class RecipeCommunity extends StatelessWidget {
               ),
               SizedBox(height: 10.h),
 
-              // RECIPE CARD
               Container(
                 width: double.infinity,
-                height: 250.6.h,
+                height: 260.6.h,
                 decoration: BoxDecoration(
                   color: AppColors.mainpink,
                   borderRadius: BorderRadius.circular(14),
@@ -114,7 +118,10 @@ class RecipeCommunity extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(width: 8.w),
-                                SvgPicture.asset('assets/star.svg'),
+                                SvgPicture.asset(
+                                  'assets/star.svg',
+                                  color: Colors.white,
+                                ),
                                 SizedBox(width: 5.w),
                                 Text(
                                   "${item.rating}",
@@ -148,7 +155,10 @@ class RecipeCommunity extends StatelessWidget {
                                   children: [
                                     Row(
                                       children: [
-                                        SvgPicture.asset('assets/clock.svg'),
+                                        SvgPicture.asset(
+                                          'assets/clock.svg',
+                                          color: Colors.white,
+                                        ),
                                         SizedBox(width: 6.w),
                                         Text(
                                           "${item.timeRequired} min",
@@ -171,7 +181,10 @@ class RecipeCommunity extends StatelessWidget {
                                           ),
                                         ),
                                         SizedBox(width: 6.w),
-                                        SvgPicture.asset('assets/comment.svg'),
+                                        SvgPicture.asset(
+                                          'assets/comment.svg',
+                                          width: 15,
+                                        ),
                                       ],
                                     ),
                                   ],
@@ -180,6 +193,18 @@ class RecipeCommunity extends StatelessWidget {
                             ),
                           ],
                         ),
+                      ),
+                    ),
+                    Positioned(
+                      right: 12,
+                      top: 8,
+                      child: LikeButton(
+                        isSelected: isSelected,
+                        onPressed: () {
+                          setState(() {
+                            isSelected = !isSelected;
+                          });
+                        },
                       ),
                     ),
                   ],
