@@ -2,11 +2,11 @@ import 'package:lesson2_10/features/categories/managers/category_view.dart';
 import 'package:provider/provider.dart';
 import '../../../core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
-import '../../appbars/appbarcus_toms.dart';
+import '../../common/widgets/appbarcus_toms.dart';
 import '../widgets/CategoryItem.dart';
 
-class Categorysourse extends StatelessWidget {
-  Categorysourse({super.key});
+class CategorySourse extends StatelessWidget {
+  CategorySourse({super.key});
 
   @override
   Widget build(BuildContext context) {

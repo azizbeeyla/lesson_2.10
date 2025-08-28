@@ -5,6 +5,7 @@ import 'package:lesson2_10/core/clients/dio_cielent.dart';
 import 'package:lesson2_10/core/interceptor.dart';
 import 'package:lesson2_10/data/repositry/community_repostriy.dart';
 import 'package:lesson2_10/data/repositry/login_repositiry.dart';
+import 'package:lesson2_10/data/repositry/me_repositriy.dart';
 import 'package:lesson2_10/data/repositry/review_repository/review_add.dart';
 import 'package:lesson2_10/data/repositry/review_repository/review_comment.dart';
 import 'package:lesson2_10/data/repositry/review_repository/review_repostriy.dart';
@@ -53,6 +54,7 @@ Provider(create: (context)=>CommunityRepository(apiClient: context.read())),
         ChangeNotifierProvider(create: (_) => AppthemeProvider()),
         Provider(create: (context)=>YourRecipeRepository(apiClient: context.read())),
         Provider(create: (context)=>ReviewRepositry(apiClient: context.read())),
+        Provider(create: (context) => MeRepositiry(apiClient: context.read()),),
         Provider(create: (context)=>ReviewsCommentRepository(apiClient: context.read())),
         Provider(create: (context)=>ReviewsAddRepository(apiClient: context.read())),
         Provider(create: (context)=>TopChefDetailRepository(apiClient: context.read())),

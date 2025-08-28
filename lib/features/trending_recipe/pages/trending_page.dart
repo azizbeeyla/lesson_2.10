@@ -6,7 +6,7 @@ import 'package:lesson2_10/features/trending_recipe/widgets/most_view_widget.dar
 import 'package:lesson2_10/features/trending_recipe/widgets/trending_detail.dart';
 import 'package:provider/provider.dart';
 import '../../../core/utils/app_colors.dart';
-import '../../appbars/appbarcus_toms.dart';
+import '../../common/widgets/appbarcus_toms.dart';
 
 class TrendingPage extends StatelessWidget {
   const TrendingPage({super.key});

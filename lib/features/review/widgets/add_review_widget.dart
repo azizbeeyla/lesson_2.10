@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lesson2_10/core/utils/app_colors.dart';
-import 'package:lesson2_10/features/appbars/iconbutton.dart';
-import 'package:lesson2_10/features/authenfiaction/common/continue_button.dart';
-import 'package:lesson2_10/features/onboarding/widgets/continue_button.dart';
+
 import 'package:lesson2_10/features/review/widgets/recipe_text_button.dart';
 
 class AddReviews extends StatefulWidget {
@@ -155,13 +153,13 @@ class _AddReviewsState extends State<AddReviews> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            RecipeTextButton(
+            RecipeTextButtonReview(
               backgroundColor: AppColors.pinkorig,
               text: "Cancel",
               onPressed: () {},
               textcolor: AppColors.pink,
             ),
-            RecipeTextButton(
+            RecipeTextButtonReview(
               backgroundColor: AppColors.mainpink,
               text: "Submit",
               onPressed: () {},

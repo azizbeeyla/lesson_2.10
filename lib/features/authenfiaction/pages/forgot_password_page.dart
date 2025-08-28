@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lesson2_10/core/utils/app_colors.dart';
-import 'package:lesson2_10/features/authenfiaction/common/continue_button.dart';
+import 'package:lesson2_10/features/authenfiaction/widgets/continue_button.dart';
 import 'package:lesson2_10/features/authenfiaction/widgets/forgot_password_detail.dart';
 import 'package:lesson2_10/features/authenfiaction/widgets/recipe_text.dart';
 

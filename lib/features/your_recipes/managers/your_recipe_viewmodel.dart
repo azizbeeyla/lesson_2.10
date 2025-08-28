@@ -9,32 +9,22 @@ class YourRecipeViewModel extends ChangeNotifier {
   YourRecipeViewModel({required YourRecipeRepository yourRecipesRepo})
       : _yourRecipesRepo = yourRecipesRepo;
 
-  // Data
   List<YourRecipeModel> yourRecipes = [];
 
-  // Loading va error
   bool isYourRecipeLoad = false;
-  String? yourReciperError;
+  String? yourRecipeError;
 
-  Future<void> fetchRecipes({int limit = 8}) async {
+  Future<void> fetchRecipes() async {
     isYourRecipeLoad = true;
-    yourReciperError = null;
+    yourRecipeError = null;
     notifyListeners();
-
-    try {
-      final result = await _yourRecipesRepo.fetchYourRecipes(limit: limit);
-
-      result.fold(
-            (err) {
-          yourReciperError = err.toString();
-        },
-            (data) {
-          yourRecipes = data;
-        },
-      );
-    } catch (e) {
-      yourReciperError = e.toString();
-    }
+    var result = await _yourRecipesRepo.getYourRecipes();
+    result.fold(
+          (e) {
+        return yourRecipeError = e.toString();
+      },
+          (value) => yourRecipes = value,
+    );
 
     isYourRecipeLoad = false;
     notifyListeners();

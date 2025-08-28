@@ -9,7 +9,7 @@ import 'package:lesson2_10/features/topchefs/widgets/share_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 import '../../../data/repositry/your_recipe_repositiry/your_repositriy.dart';
-import '../../appbars/appbarcus_toms.dart';
+import '../../common/widgets/appbarcus_toms.dart';
 import '../../your_recipes/managers/your_recipe_viewmodel.dart';
 import '../../your_recipes/widgets/your_recipe_widget.dart';
 import '../widgets/top_chef_follow.dart';

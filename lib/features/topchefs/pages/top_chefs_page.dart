@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:lesson2_10/core/utils/app_colors.dart';
 
 import '../../../core/utils/apptheme_provider.dart';
-import '../../appbars/appbarcus_toms.dart';
+import '../../common/widgets/appbarcus_toms.dart';
 import '../managers/top_chefs_viewmodel.dart';
 
 class TopChefPage extends StatelessWidget {

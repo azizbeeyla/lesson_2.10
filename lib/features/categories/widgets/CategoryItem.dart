@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../pages/DetailPage.dart';
+import '../pages/category_item.dart';
 
 class CategoryItem extends StatelessWidget {
   const CategoryItem({

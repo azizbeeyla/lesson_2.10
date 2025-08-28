@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../data/models/authefincation_models/login_model.dart';
 import '../../../data/repositry/login_repositiry.dart';
-import '../../../data/result.dart';
 
 class LoginViewModel extends ChangeNotifier {
   final AuthRepository _authRepo;
@@ -15,24 +14,27 @@ class LoginViewModel extends ChangeNotifier {
   Future<bool> login(String login, String password) async {
     isLoading = true;
     error = null;
+    notifyListeners();
+
     bool success = false;
 
-    notifyListeners();
-    final result = await _authRepo.login(
-      LoginModel(login: login, password: password),
-    );
+    try {
+      final result = await _authRepo.login(LoginModel(login: login, password: password));
 
-  return  result.fold((e) {
-
-
+      result.fold(
+            (e) {
+          error = e.toString();
+          success = false;
+        },
+            (data) {
+          success = true;
+        },
+      );
+    } catch (e) {
       error = e.toString();
-      return false;
-    }, (data) {
+      success = false;
+    }
 
-    success=true;
-    return true;
-  },
-  );
     isLoading = false;
     notifyListeners();
 

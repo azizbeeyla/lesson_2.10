@@ -4,13 +4,13 @@ import 'package:lesson2_10/core/utils/app_colors.dart';
 import 'package:lesson2_10/features/authenfiaction/widgets/forgot_password_detail.dart';
 import 'package:lesson2_10/features/authenfiaction/widgets/recipe_text.dart';
 
-class RecipeTextButton extends StatelessWidget {
+class RecipeTextButtonReview extends StatelessWidget {
   final Color backgroundColor;
   final Color textcolor;
 
   final String text;
   final VoidCallback? onPressed;
-  const RecipeTextButton({
+  const RecipeTextButtonReview({
     super.key, required this.backgroundColor, required this.text, required this.onPressed, required this.textcolor,
   });
 

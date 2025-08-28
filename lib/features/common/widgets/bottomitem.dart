@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lesson2_10/features/categories/pages/DetailPage.dart';
+import 'package:lesson2_10/features/categories/pages/category_item.dart';
 
-import '../../core/utils/app_colors.dart';
+import '../../../core/utils/app_colors.dart';
 
 class BottomItem extends StatelessWidget {
   const BottomItem({

@@ -5,7 +5,7 @@ import 'package:lesson2_10/core/router/router_name.dart';
 import 'package:lesson2_10/features/categories/widgets/Navigators.dart';
 import 'package:provider/provider.dart';
 import '../../../core/utils/app_colors.dart';
-import '../../appbars/recipi_appbar.dart';
+import '../../common/widgets/recipi_appbar.dart';
 import '../managers/recipi_lunch_view.dart';
 
 class CategoryDetailsRecipe extends StatelessWidget {

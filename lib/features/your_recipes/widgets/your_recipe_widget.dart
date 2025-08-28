@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lesson2_10/features/your_recipes/managers/your_recipe_viewmodel.dart';
 import 'package:lesson2_10/features/your_recipes/widgets/recipe_card.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/utils/app_colors.dart';
+import '../managers/your_recipe_viewmodel.dart';
 
 class YourRecipeWidget extends StatefulWidget {
+  final int? itemLimit;
+
   const YourRecipeWidget({
     super.key,
+    this.itemLimit,
   });
 
   @override
@@ -20,46 +21,50 @@ class _YourRecipeWidgetState extends State<YourRecipeWidget> {
   @override
   Widget build(BuildContext context) {
     return Consumer<YourRecipeViewModel>(
-      builder: (context, vm, child) => Column(
-        children: [
-          if (vm.isYourRecipeLoad) Center(child: CircularProgressIndicator()),
+      builder: (context, vm, child) {
+        final recipes = widget.itemLimit != null
+            ? vm.yourRecipes.take(widget.itemLimit!).toList()
+            : vm.yourRecipes;
 
-          if (vm.yourReciperError != null && vm.yourReciperError!.isNotEmpty)
-            Center(
-              child: Text(
-                vm.yourReciperError!,
-                style: const TextStyle(color: Colors.red, fontSize: 16),
+        return Column(
+          children: [
+            if (vm.isYourRecipeLoad)
+              const Center(child: CircularProgressIndicator()),
+
+            if (vm.yourRecipeError != null && vm.yourRecipeError!.isNotEmpty)
+              Center(
+                child: Text(
+                  vm.yourRecipeError!,
+                  style: const TextStyle(color: Colors.red, fontSize: 16),
+                ),
               ),
-            ),
 
-          if (!vm.isYourRecipeLoad &&
-              (vm.yourReciperError == null || vm.yourReciperError!.isEmpty))
-            Center(
-              child: GridView.builder(
-                physics: NeverScrollableScrollPhysics(),
+            if (!vm.isYourRecipeLoad &&
+                (vm.yourRecipeError == null || vm.yourRecipeError!.isEmpty))
+              GridView.builder(
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: vm.yourRecipes.length,
+                itemCount: recipes.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-
                   childAspectRatio: 168.w / 195.h,
                   crossAxisSpacing: 15,
                 ),
-
                 itemBuilder: (context, index) {
+                  final recipe = recipes[index];
                   return RecipeCard(
-                    id: vm.yourRecipes[index].id,
-                    recipeId: vm.yourRecipes[index].categoryId,
-                    photo: vm.yourRecipes[index].photo,
-                    title: vm.yourRecipes[index].title,
-                    rating: vm.yourRecipes[index].rating,
-                    timerequired: vm.yourRecipes[index].timerequired,
+                    id: recipe.id,
+                    recipeId: recipe.categoryId,
+                    photo: recipe.photo,
+                    title: recipe.title,
+                    rating: recipe.rating,
+                    timerequired: recipe.timerequired,
                   );
                 },
               ),
-            ),
-        ],
-      ),
+          ],
+        );
+      },
     );
   }
 }

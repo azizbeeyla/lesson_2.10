@@ -6,9 +6,10 @@ import 'package:lesson2_10/features/authenfiaction/pages/login_page.dart';
 import 'package:lesson2_10/features/authenfiaction/pages/send_code_page.dart';
 import 'package:lesson2_10/features/authenfiaction/pages/sign_up_page.dart';
 import 'package:lesson2_10/features/authenfiaction/pages/splash_page.dart';
-import 'package:lesson2_10/features/categories/pages/CategorySourse.dart';
-import 'package:lesson2_10/features/categories/pages/DetailPage.dart';
+import 'package:lesson2_10/features/categories/pages/category_sourse.dart';
+import 'package:lesson2_10/features/categories/pages/category_item.dart';
 import 'package:lesson2_10/features/community/pages/community_page.dart';
+import 'package:lesson2_10/features/me/pages/me_page.dart';
 import 'package:lesson2_10/features/onboarding/pages/cuisines_alergic.dart';
 import 'package:lesson2_10/features/onboarding/pages/cusiness_page.dart';
 import 'package:lesson2_10/features/onboarding/pages/levels_page.dart';
@@ -16,21 +17,23 @@ import 'package:lesson2_10/features/onboarding/pages/onboarding3_page.dart';
 import 'package:lesson2_10/features/onboarding/pages/onboarding_page1.dart';
 import 'package:lesson2_10/features/onboarding/pages/page_view.dart';
 import 'package:lesson2_10/features/review/page/review_page.dart';
+import 'package:lesson2_10/features/sliver_page.dart';
 import 'package:lesson2_10/features/topchefs/pages/top_chefs_detail.dart';
 import 'package:lesson2_10/features/topchefs/pages/top_chefs_page.dart';
 import 'package:lesson2_10/features/trending_recipe/pages/trending_page.dart';
 
-import '../../features/categories/pages/recipilunch.dart';
+import '../../features/categories/pages/category_detail.dart';
 import '../../features/onboarding/pages/onboarding_page2.dart';
 import '../../features/review/page/review_add_page.dart';
+import '../../features/your_recipes/pages/your_recipe_page.dart';
 
 class RouterClass {
   final router = GoRouter(
-    initialLocation: RouterName.splash,
+    initialLocation: RouterName.yourRecipe,
     routes: [
       GoRoute(
         path: RouterName.categorysourse,
-        builder: (context, state) => Categorysourse(),
+        builder: (context, state) => CategorySourse(),
       ),
 
       GoRoute(
@@ -39,7 +42,7 @@ class RouterClass {
         builder: (BuildContext context, GoRouterState state) {
           final id = num.parse(state.pathParameters['id']!);
           final title = Uri.decodeComponent(state.pathParameters['title']!);
-          return CategoryDetailPagee(categoryId: id, title: title);
+          return CategoryItemPage(categoryId: id, title: title);
         },
       ),
       GoRoute(
@@ -133,7 +136,20 @@ class RouterClass {
           categoriyId: (state.extra as Map)["categoriyId"],
         ),
       ),
-      GoRoute(path: RouterName.splash,builder: (context,state)=>SplashPage())
+      GoRoute(
+        path: RouterName.splash,
+        builder: (context, state) => SplashPage(),
+      ),
+
+      GoRoute(
+        path: RouterName.mePage,
+        builder: (context, state) => MePage(),
+      ),
+      GoRoute(
+        path: RouterName.sliver,
+        builder: (context, state) => SliverPage(),
+      ),
+      GoRoute(path: RouterName.yourRecipe,builder: (context, state) => YourRecipePage(),)
     ],
   );
 }

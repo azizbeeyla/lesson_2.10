@@ -46,7 +46,7 @@ class CommunityPage extends StatelessWidget {
         ),
         body: ChangeNotifierProvider(
           create: (context) => CommunityViewModel(communityRepo: context.read()),
-          builder: (context, chil) => TabBarView(
+          builder: (context, child) => TabBarView(
             children: [
               Consumer<CommunityViewModel>(
                 builder: (context, vm, child) => vm.isLoadingTop

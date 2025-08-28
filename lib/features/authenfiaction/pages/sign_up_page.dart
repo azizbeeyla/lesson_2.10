@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:lesson2_10/core/utils/app_colors.dart';
-import 'package:lesson2_10/features/authenfiaction/common/continue_button.dart';
+import 'package:lesson2_10/features/authenfiaction/widgets/continue_button.dart';
 import 'package:lesson2_10/features/authenfiaction/widgets/recipe_text.dart';
 import 'package:provider/provider.dart';
 
 import '../../../data/models/authefincation_models/sign_up.dart';
 import '../managers/sign_up_viewmodel.dart';
-
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -125,85 +124,87 @@ class _SignUpPageState extends State<SignUpPage> {
                       onPressed: vm.isLoading
                           ? null
                           : () {
-                        if (formKey.currentState!.validate()) {
-                          if (passwordController.text.trim() !=
-                              confirmController.text.trim()) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content:
-                                Text("Passwords do not match"),
-                              ),
-                            );
-                            return;
-                          }
+                              if (formKey.currentState!.validate()) {
+                                if (passwordController.text.trim() !=
+                                    confirmController.text.trim()) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text("Passwords do not match"),
+                                    ),
+                                  );
+                                  return;
+                                }
 
-                          final model = SignUpModel(
-                            username: fullnameController.text
-                                .trim()
-                                .replaceAll(" ", "")
-                                .toLowerCase(),
-                            firstName: fullnameController.text
-                                .trim()
-                                .split(" ")
-                                .first,
-                            lastName: fullnameController.text
-                                .trim()
-                                .split(" ")
-                                .length >
-                                1
-                                ? fullnameController.text
-                                .trim()
-                                .split(" ")
-                                .last
-                                : "",
-                            email: emailController.text.trim(),
-                            phoneNumber: mobileController.text.trim(),
-                            birthDate: dateController.text.trim(),
-                            password: passwordController.text.trim(),
-                          );
+                                final model = SignUpModel(
+                                  username: fullnameController.text
+                                      .trim()
+                                      .replaceAll(" ", "")
+                                      .toLowerCase(),
+                                  firstName: fullnameController.text
+                                      .trim()
+                                      .split(" ")
+                                      .first,
+                                  lastName:
+                                      fullnameController.text
+                                              .trim()
+                                              .split(" ")
+                                              .length >
+                                          1
+                                      ? fullnameController.text
+                                            .trim()
+                                            .split(" ")
+                                            .last
+                                      : "",
+                                  email: emailController.text.trim(),
+                                  phoneNumber: mobileController.text.trim(),
+                                  birthDate: dateController.text.trim(),
+                                  password: passwordController.text.trim(),
+                                );
 
-                          vm.register(model).then((_) {
-                            if (vm.success) {
-                              final preferences=FlutterSecureStorage();
+                                vm.register(model).then((_) {
+                                  if (vm.success) {
+                                    final preferences = FlutterSecureStorage();
 
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                      "Registration successful!"),
-                                ),
-                              );
-
-                            }
-                          });
-                        }
-                      }, textcolor: AppColors.whiteText,
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          "Registration successful!",
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                });
+                              }
+                            },
+                      textcolor: AppColors.whiteText,
                     ),
-                    SizedBox(height: 12,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Already have an account?",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14,
-                  ),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Already have an account?",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14,
+                          ),
+                        ),
+                        SizedBox(width: 5),
+                        Text(
+                          "Login",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14,
+                            color: AppColors.mainpink,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                SizedBox(width: 5),
-                Text(
-                  "Login",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14,
-                    color: AppColors.mainpink,
-                  ),
-                ),
-              ],
-
-            )
-              ]  )
               ),
             ),
           ),

@@ -18,7 +18,10 @@ class AuthRepository {
     final result = await _apiClient.post(
       "/auth/login",
       data: model.toJson(),
+
     );
+    print("API response: $result");
+
 
     return result.fold(
           (error) => Result.error(error),

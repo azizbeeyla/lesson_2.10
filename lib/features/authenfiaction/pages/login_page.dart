@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lesson2_10/core/router/router_name.dart';
-import 'package:lesson2_10/features/authenfiaction/common/continue_button.dart';
+import 'package:lesson2_10/features/authenfiaction/widgets/continue_button.dart';
 import 'package:lesson2_10/features/authenfiaction/widgets/login_text_detail.dart';
 import 'package:lesson2_10/features/authenfiaction/widgets/recipe_text.dart';
 import 'package:lesson2_10/features/authenfiaction/managers/login_view_model.dart';
@@ -75,8 +75,8 @@ class _LoginPageState extends State<LoginPage> {
 
                      final result=await  vm.login(emailController.text, passwordController.text);
                      if (result) {
-                       context.go(RouterName.categorysourse);
-
+                       context.push(RouterName.categorysourse);
+                       print("Login natijasi: $result, error: ${vm.error}");
                      }
                       },
         textcolor: AppColors.pink,

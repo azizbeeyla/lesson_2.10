@@ -3,14 +3,14 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/utils/app_colors.dart';
-import '../../appbars/recipi_appbar.dart';
-import '../../appbars/recipi_appbar_bottom.dart';
+import '../../common/widgets/recipi_appbar.dart' show RecipeAppBarMain;
+import '../../common/widgets/recipi_appbar_bottom.dart';
 import '../managers/category_detail.dart';
 import '../widgets/Navigators.dart';
 import '../widgets/recipeItem.dart';
 
-class CategoryDetailPagee extends StatelessWidget {
-  const CategoryDetailPagee({
+class CategoryItemPage extends StatelessWidget {
+  const CategoryItemPage({
     super.key,
     required this.categoryId,
     required this.title,

@@ -18,7 +18,6 @@ class CommunityViewModel extends ChangeNotifier {
       communityOld = [];
   bool isLoadingTop = true;
   bool isLoadingNew = true;
-
   bool isLoadingOld = true;
   String? error;
 
