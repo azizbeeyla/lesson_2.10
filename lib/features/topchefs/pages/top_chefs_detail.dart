@@ -70,7 +70,7 @@ class TopChefsDetail extends StatelessWidget {
                   },
                 ),
                 body: ChangeNotifierProvider(
-                  create: (context) => CategoryView(apiClient: context.read()),
+                  create: (context) => CategoryView(repository: context.read()),
                   builder: (context, child) => SingleChildScrollView(
                     child: Column(
                       children: [

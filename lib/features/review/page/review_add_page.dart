@@ -22,6 +22,7 @@ class ReviewAddPage extends StatelessWidget {
         reviewsAddRepo: context.read(),
       ),
       builder: (context, child) => Scaffold(
+        extendBody: true,
         backgroundColor: AppColors.baige,
         appBar: AppBar(
           backgroundColor: AppColors.baige,

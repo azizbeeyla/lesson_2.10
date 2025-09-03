@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:hive/hive.dart';
 import 'package:lesson2_10/core/clients/dio_cielent.dart';
 import 'package:lesson2_10/core/interceptor.dart';
 import 'package:lesson2_10/data/repositry/community_repostriy.dart';
@@ -18,11 +19,16 @@ import 'package:provider/provider.dart';
 import 'core/router/router_class.dart';
 import 'core/utils/app_theme.dart';
 import 'core/utils/apptheme_provider.dart';
+import 'data/adapter/category_adapter.dart';
+import 'data/models/categorymodels/sourse_model.dart';
 import 'data/repositry/topchefs/top_chefs.dart';
 import 'data/repositry/trending_repostries.dart';
 import 'features/authenfiaction/managers/login_view_model.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  Hive.registerAdapter(SourseModelAdapter());
+  await Hive.openBox<SourseModel>('sources');
   runApp(
     MultiProvider(
       providers: [

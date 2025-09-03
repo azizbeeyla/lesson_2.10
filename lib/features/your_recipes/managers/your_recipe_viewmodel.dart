@@ -7,7 +7,9 @@ class YourRecipeViewModel extends ChangeNotifier {
   final YourRecipeRepository _yourRecipesRepo;
 
   YourRecipeViewModel({required YourRecipeRepository yourRecipesRepo})
-      : _yourRecipesRepo = yourRecipesRepo;
+      : _yourRecipesRepo = yourRecipesRepo{
+        fetchRecipes();
+}
 
   List<YourRecipeModel> yourRecipes = [];
 

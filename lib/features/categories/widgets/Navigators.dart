@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:lesson2_10/core/router/router_name.dart';
 
 class Navigations extends StatefulWidget {
   Navigations({
@@ -52,9 +54,17 @@ class _NavigationsState extends State<Navigations> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SvgPicture.asset("assets/home.svg"),
-                  SvgPicture.asset("assets/comment.svg"),
+                  GestureDetector(
+                      onTap: (){
+                        context.push(RouterName.categorydetail);
+                      },
+                      child: SvgPicture.asset("assets/comment.svg")),
                   SvgPicture.asset("assets/romf.svg"),
-                  SvgPicture.asset("assets/human.svg"),
+                  GestureDetector(
+                      onTap: (){
+                        context.push(RouterName.mePage);
+                      },
+                      child: SvgPicture.asset("assets/human.svg")),
                 ],
               ),
             ),

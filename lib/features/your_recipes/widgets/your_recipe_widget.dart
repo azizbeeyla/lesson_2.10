@@ -35,7 +35,7 @@ class _YourRecipeWidgetState extends State<YourRecipeWidget> {
               Center(
                 child: Text(
                   vm.yourRecipeError!,
-                  style: const TextStyle(color: Colors.red, fontSize: 16),
+                  style:  TextStyle(color: Colors.red, fontSize: 14.sp),
                 ),
               ),
 

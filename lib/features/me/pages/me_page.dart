@@ -23,6 +23,7 @@ class MePage extends StatelessWidget {
           builder: (context, vm, child) {
             if (vm.loading) {
               return const Scaffold(
+                extendBody: true,
                 body: Center(child: CircularProgressIndicator()),
               );
             }

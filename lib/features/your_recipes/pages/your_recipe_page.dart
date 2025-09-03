@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lesson2_10/features/categories/widgets/Navigators.dart';
 import 'package:lesson2_10/features/common/widgets/appbarcus_toms.dart';
 import 'package:lesson2_10/features/your_recipes/managers/your_recipe_viewmodel.dart';
 import 'package:lesson2_10/features/your_recipes/widgets/your_recipe_widget.dart';
@@ -34,43 +35,52 @@ class YourRecipePage extends StatelessWidget {
               Center(child: Text(vm.yourRecipeError.toString()));
             return Padding(
               padding: const EdgeInsets.only(top: 28.0),
-              child: Column(
-                children: [
-                  Container(
-                    width: 430.w,
-                    height: 255.h,
-                    decoration: BoxDecoration(
-                      color: AppColors.mainpink,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 38.w,
-                      vertical: 14.h,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Most Viewed Today",
-                          style: TextStyle(
-                            color: AppColors.whiteText,
-                            fontSize: 15.sp,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      width: 430.w,
+                      height: 258.h,
+                      decoration: BoxDecoration(
+                        color: AppColors.mainpink,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 38.w,
+                        vertical: 14.h,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Most Viewed Today",
+                            style: TextStyle(
+                              color: AppColors.whiteText,
+                              fontSize: 15.sp,
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 12.h ,),
-                        YourRecipeWidget(
-                          itemLimit: 2,
-                        ),
-                      ],
+                          SizedBox(
+                            height: 8.h,
+                          ),
+                          YourRecipeWidget(
+                            itemLimit: 2,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
 
-                  YourRecipeWidget()
-                ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 37.0),
+                      child: YourRecipeWidget(),
+                    ),
+                  ],
+                ),
               ),
             );
           },
+
         ),
+        bottomNavigationBar: Navigations(),
       ),
     );
   }

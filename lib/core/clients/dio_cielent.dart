@@ -7,7 +7,7 @@ class ApiClient {
   ApiClient({required this.interceptor}) {
     _dio = Dio(
       BaseOptions(
-        baseUrl: "http://192.168.0.106:8888/api/v1",
+        baseUrl: "http://192.168.43.218:8888/api/v1",
         validateStatus: (status) => true,
       ),
     )..interceptors.add(interceptor);

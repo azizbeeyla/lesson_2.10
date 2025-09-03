@@ -26,7 +26,7 @@ class _SplashPageState extends State<SplashPage> {
     if (token != null && token.isNotEmpty) {
       context.go(RouterName.categorysourse);
     } else {
-      context.go(RouterName.signup);
+      context.go(RouterName.login);
     }
   }
 
