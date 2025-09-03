@@ -17,19 +17,19 @@ import 'package:lesson2_10/features/onboarding/pages/onboarding3_page.dart';
 import 'package:lesson2_10/features/onboarding/pages/onboarding_page1.dart';
 import 'package:lesson2_10/features/onboarding/pages/page_view.dart';
 import 'package:lesson2_10/features/review/page/review_page.dart';
-import 'package:lesson2_10/features/sliver_page.dart';
 import 'package:lesson2_10/features/topchefs/pages/top_chefs_detail.dart';
 import 'package:lesson2_10/features/topchefs/pages/top_chefs_page.dart';
 import 'package:lesson2_10/features/trending_recipe/pages/trending_page.dart';
 
 import '../../features/categories/pages/category_detail.dart';
+import '../../features/date_picker_page.dart';
 import '../../features/onboarding/pages/onboarding_page2.dart';
 import '../../features/review/page/review_add_page.dart';
 import '../../features/your_recipes/pages/your_recipe_page.dart';
 
 class RouterClass {
   final router = GoRouter(
-    initialLocation: RouterName.yourRecipe,
+    initialLocation: RouterName.datePicker,
     routes: [
       GoRoute(
         path: RouterName.categorysourse,
@@ -145,11 +145,9 @@ class RouterClass {
         path: RouterName.mePage,
         builder: (context, state) => MePage(),
       ),
-      GoRoute(
-        path: RouterName.sliver,
-        builder: (context, state) => SliverPage(),
-      ),
-      GoRoute(path: RouterName.yourRecipe,builder: (context, state) => YourRecipePage(),)
+
+      GoRoute(path: RouterName.yourRecipe,builder: (context, state) => YourRecipePage(),),
+      GoRoute(path: RouterName.datePicker,builder: (context,state)=>DatePickerPage())
     ],
   );
 }

@@ -24,4 +24,5 @@ class RouterName{
   static String mePage="/me";
   static String sliver="/sliver";
   static String yourRecipe="/yourRecipe";
+  static String datePicker="/datepciker";
 }

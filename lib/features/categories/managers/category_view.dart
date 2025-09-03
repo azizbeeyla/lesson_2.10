@@ -8,16 +8,24 @@ class CategoryView extends ChangeNotifier {
 
   CategoryView({required CategoryRepository repository})
       : _repository = repository {
-    _loadCachedCategories();
-    getCategories();
+    _init();
   }
 
   List<SourseModel> categories = [];
   bool isLoading = false;
   String? error;
 
+  Future<void> _init() async {
+    _loadCachedCategories();
+
+    if (categories.isEmpty) {
+      await getCategories();
+    }
+  }
+
   void _loadCachedCategories() {
     categories = _repository.getCachedCategories();
+    debugPrint('Loaded ${categories.length} items from cache');
     notifyListeners();
   }
 
@@ -28,8 +36,10 @@ class CategoryView extends ChangeNotifier {
 
     try {
       categories = await _repository.fetchCategories();
+      debugPrint('Fetched ${categories.length} items from API');
     } catch (e) {
       error = e.toString();
+      debugPrint('Error fetching categories: $error');
     }
 
     isLoading = false;

@@ -4,10 +4,10 @@ import '../../../data/models/categorymodels/sourse_model.dart';
 
 class CategoryRepository {
   final ApiClient _apiClient;
-  final Box<SourseModel> _box = Hive.box<SourseModel>('categories');
 
   CategoryRepository({required ApiClient apiClient}) : _apiClient = apiClient;
 
+  Box<SourseModel> get _box => Hive.box<SourseModel>('sources');
 
   Future<List<SourseModel>> fetchCategories() async {
     final result = await _apiClient.get<dynamic>("/admin/categories/list");

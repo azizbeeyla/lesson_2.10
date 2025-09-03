@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:lesson2_10/core/clients/dio_cielent.dart';
 import 'package:lesson2_10/core/interceptor.dart';
 import 'package:lesson2_10/data/repositry/community_repostriy.dart';
@@ -21,12 +22,17 @@ import 'core/utils/app_theme.dart';
 import 'core/utils/apptheme_provider.dart';
 import 'data/adapter/category_adapter.dart';
 import 'data/models/categorymodels/sourse_model.dart';
+import 'data/repositry/sourse_repository.dart';
 import 'data/repositry/topchefs/top_chefs.dart';
 import 'data/repositry/trending_repostries.dart';
+
 import 'features/authenfiaction/managers/login_view_model.dart';
+
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Hive.initFlutter();
   Hive.registerAdapter(SourseModelAdapter());
   await Hive.openBox<SourseModel>('sources');
   runApp(
@@ -43,6 +49,7 @@ void main() async{
           create: (context) =>
               AuthRepository(apiClient: context.read<ApiClient>(), secureStorage: context.read()),
         ),
+        Provider(create: (context) => CategoryRepository(apiClient: context.read()),),
         Provider(
           create: (context) =>
               SignUpRepository(apiClient: context.read<ApiClient>()),
