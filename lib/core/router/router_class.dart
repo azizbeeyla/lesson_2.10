@@ -10,6 +10,7 @@ import 'package:lesson2_10/features/categories/pages/category_sourse.dart';
 import 'package:lesson2_10/features/categories/pages/category_item.dart';
 import 'package:lesson2_10/features/community/pages/community_page.dart';
 import 'package:lesson2_10/features/me/pages/me_page.dart';
+import 'package:lesson2_10/features/notification/pages/notification_page.dart';
 import 'package:lesson2_10/features/onboarding/pages/cuisines_alergic.dart';
 import 'package:lesson2_10/features/onboarding/pages/cusiness_page.dart';
 import 'package:lesson2_10/features/onboarding/pages/levels_page.dart';
@@ -23,13 +24,14 @@ import 'package:lesson2_10/features/trending_recipe/pages/trending_page.dart';
 
 import '../../features/categories/pages/category_detail.dart';
 import '../../features/date_picker_page.dart';
+import '../../features/notification/pages/settings_page.dart';
 import '../../features/onboarding/pages/onboarding_page2.dart';
 import '../../features/review/page/review_add_page.dart';
 import '../../features/your_recipes/pages/your_recipe_page.dart';
 
 class RouterClass {
   final router = GoRouter(
-    initialLocation: RouterName.datePicker,
+    initialLocation: RouterName.settings,
     routes: [
       GoRoute(
         path: RouterName.categorysourse,
@@ -147,7 +149,9 @@ class RouterClass {
       ),
 
       GoRoute(path: RouterName.yourRecipe,builder: (context, state) => YourRecipePage(),),
-      GoRoute(path: RouterName.datePicker,builder: (context,state)=>DatePickerPage())
+      GoRoute(path: RouterName.datePicker,builder: (context,state)=>DatePickerPage()),
+      GoRoute(path: RouterName.notification,builder: (context, state) => NotificationPage(),),
+      GoRoute(path: RouterName.settings,builder: (context, state) => SettingsPage(),)
     ],
   );
 }
