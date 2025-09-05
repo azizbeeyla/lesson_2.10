@@ -6,7 +6,7 @@ import 'package:lesson2_10/features/topchefs/widgets/top_viewed_chef.dart';
 import 'package:provider/provider.dart';
 import 'package:lesson2_10/core/utils/app_colors.dart';
 
-import '../../../core/utils/apptheme_provider.dart';
+import '../../common/managers/apptheme_provider.dart';
 import '../../common/widgets/appbarcus_toms.dart';
 import '../managers/top_chefs_viewmodel.dart';
 

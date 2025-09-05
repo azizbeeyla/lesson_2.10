@@ -31,7 +31,7 @@ import '../../features/your_recipes/pages/your_recipe_page.dart';
 
 class RouterClass {
   final router = GoRouter(
-    initialLocation: RouterName.settings,
+    initialLocation: RouterName.notification,
     routes: [
       GoRoute(
         path: RouterName.categorysourse,

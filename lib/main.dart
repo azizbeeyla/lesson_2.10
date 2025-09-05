@@ -18,8 +18,8 @@ import 'package:lesson2_10/features/authenfiaction/managers/sign_up_viewmodel.da
 import 'package:lesson2_10/features/your_recipes/managers/your_recipe_viewmodel.dart';
 import 'package:provider/provider.dart';
 import 'core/router/router_class.dart';
-import 'core/utils/app_theme.dart';
-import 'core/utils/apptheme_provider.dart';
+import 'features/common/widgets/app_theme.dart';
+import 'features/common/managers/apptheme_provider.dart';
 import 'data/adapter/category_adapter.dart';
 import 'data/models/categorymodels/sourse_model.dart';
 import 'data/repositry/sourse_repository.dart';
